@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://bhq5xalrmjrgm"]
+
+[ext_resource type="Texture2D" uid="uid://draw16127vtvh" path="res://Proyecto nuevo (25).png" id="1_f507g"]
+[ext_resource type="Script" path="res://Scenes/JumpParticles.gd" id="2_poxi6"]
+
+[sub_resource type="Curve" id="Curve_rk1ix"]
+min_value = -2.23517e-10
+_data = [Vector2(0.0246212, 0.335849), 0.0, 0.0, 0, 0, Vector2(1, 0.0339622), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="JumpParticles" type="CPUParticles2D"]
+z_index = 500
+position = Vector2(-1, 0)
+emitting = false
+amount = 10
+lifetime = 1.5
+one_shot = true
+speed_scale = 2.0
+explosiveness = 1.0
+fixed_fps = 30
+texture = ExtResource("1_f507g")
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+initial_velocity_max = 20.0
+angle_max = 360.0
+scale_amount_min = 5.0
+scale_amount_max = 25.0
+scale_amount_curve = SubResource("Curve_rk1ix")
+script = ExtResource("2_poxi6")

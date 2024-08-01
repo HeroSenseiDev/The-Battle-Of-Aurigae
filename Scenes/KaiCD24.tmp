@@ -1,0 +1,1892 @@
+[gd_scene load_steps=82 format=3 uid="uid://0v5cp8nvr4u4"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/Player.gd" id="1_sk5bm"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/StateMachine.gd" id="2_4geli"]
+[ext_resource type="Texture2D" uid="uid://banlnb2cul62k" path="res://Art/Sprites/Kairos/Slide/Kairos-Slide_0.png" id="3_c81vo"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/PlayerStates/Idle.gd" id="3_j2n1x"]
+[ext_resource type="Texture2D" uid="uid://bcwad5fp1ulj3" path="res://Art/Sprites/Kairos/Attack/Kairos-Attack_0.png" id="4_4kruk"]
+[ext_resource type="Texture2D" uid="uid://ds56vg86hcwh2" path="res://Art/Sprites/Kairos/Idle/Kairos-Idle_00.png" id="4_at3sl"]
+[ext_resource type="Texture2D" uid="uid://kevgnkie2xuq" path="res://Art/Sprites/Kairos/Idle/Kairos-Idle_02.png" id="6_wvuxc"]
+[ext_resource type="Texture2D" uid="uid://dbgeiqh2ke5r7" path="res://Art/Sprites/Kairos/Idle/Kairos-Idle_05.png" id="8_xvsk3"]
+[ext_resource type="Texture2D" uid="uid://bs34gobubf68y" path="res://Art/Sprites/Kairos/Attack/Kairos-Attack_5.png" id="9_je5fg"]
+[ext_resource type="Texture2D" uid="uid://csvr4llh4rkh7" path="res://Art/Sprites/Kairos/Attack/Kairos-Attack_6.png" id="10_wxkkn"]
+[ext_resource type="Texture2D" uid="uid://chgagvmyow2ve" path="res://Art/Sprites/Kairos/Idle/Kairos-Idle_12.png" id="14_41r72"]
+[ext_resource type="Texture2D" uid="uid://cy5ww0bbv1phi" path="res://Art/Sprites/Kairos/Run/Kairos-Run_01.png" id="17_spvq2"]
+[ext_resource type="Texture2D" uid="uid://d36pdiccrjwq5" path="res://Art/Sprites/Kairos/Run/Kairos-Run_07.png" id="23_14u4n"]
+[ext_resource type="Texture2D" uid="uid://sq5akfk25pmi" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_0.png" id="23_h8wnc"]
+[ext_resource type="Texture2D" uid="uid://10gxu824u5wj" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_1.png" id="24_ylh3s"]
+[ext_resource type="Texture2D" uid="uid://d1ox4btgmo1u" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_2.png" id="25_nvgwc"]
+[ext_resource type="Texture2D" uid="uid://dlmyo4wu5c8h6" path="res://Art/Sprites/Kairos/Run/Kairos-Run_10.png" id="26_w7m0k"]
+[ext_resource type="Texture2D" uid="uid://dmwob56bevykc" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_3.png" id="26_w86wq"]
+[ext_resource type="Texture2D" uid="uid://d38rlp30dhsae" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_4.png" id="27_ea1xw"]
+[ext_resource type="Texture2D" uid="uid://dy8rhaqdk1ro6" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_5.png" id="28_skyhi"]
+[ext_resource type="Texture2D" uid="uid://dqs32jopoqb12" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_6.png" id="29_tvumi"]
+[ext_resource type="Texture2D" uid="uid://d146nx00v3s7i" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_7.png" id="30_0hkw6"]
+[ext_resource type="Texture2D" uid="uid://d4lhr2as0tm2h" path="res://Art/Sprites/Kairos/Jump/Kairos-Jump_8.png" id="31_g166o"]
+[ext_resource type="Script" path="res://Scripts/CameraEventArea2D.gd" id="32_ijgk1"]
+[ext_resource type="Texture2D" uid="uid://3js7tr4u7gus" path="res://Art/Sprites/Kairos-Dash_0.png" id="47_vjqw2"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/Movement.gd" id="50_puyo3"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/AttackDirector.gd" id="51_pnv81"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/Jump.gd" id="51_wrkua"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/HitboxComponent.gd" id="52_k0bpp"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/HealthComponent.gd" id="53_d2ay0"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ro3xv"]
+radius = 5.0
+height = 16.0
+
+[sub_resource type="Animation" id="Animation_s3d27"]
+resource_name = "Attack"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [ExtResource("4_4kruk"), ExtResource("9_je5fg"), ExtResource("10_wxkkn")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackDirector/HitboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_stlbp"]
+resource_name = "Dash"
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("47_vjqw2")]
+}
+
+[sub_resource type="Animation" id="Animation_6xsup"]
+resource_name = "Idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [ExtResource("4_at3sl"), ExtResource("6_wvuxc"), ExtResource("8_xvsk3"), ExtResource("14_41r72"), ExtResource("4_at3sl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AttackDirector/HitboxComponent/CollisionShape2D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 1,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_5cpw0"]
+resource_name = "Jump"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [ExtResource("23_h8wnc"), ExtResource("24_ylh3s"), ExtResource("25_nvgwc"), ExtResource("26_w86wq"), ExtResource("27_ea1xw"), ExtResource("28_skyhi"), ExtResource("29_tvumi"), ExtResource("30_0hkw6"), ExtResource("31_g166o")]
+}
+
+[sub_resource type="Animation" id="Animation_encbq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AttackDirector/HitboxComponent/CollisionShape2D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_4kruk")]
+}
+
+[sub_resource type="Animation" id="Animation_n20r4"]
+resource_name = "Run"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [ExtResource("17_spvq2"), ExtResource("23_14u4n"), ExtResource("26_w7m0k")]
+}
+
+[sub_resource type="Animation" id="Animation_dbxoh"]
+resource_name = "Slide"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [ExtResource("3_c81vo")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4wtr7"]
+_data = {
+"Attack": SubResource("Animation_s3d27"),
+"Dash": SubResource("Animation_stlbp"),
+"Idle": SubResource("Animation_6xsup"),
+"Jump": SubResource("Animation_5cpw0"),
+"RESET": SubResource("Animation_encbq"),
+"Run": SubResource("Animation_n20r4"),
+"Slide": SubResource("Animation_dbxoh")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_mgytj"]
+animation = &"Attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_csi6u"]
+animation = &"Dash"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u0wxg"]
+animation = &"Idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wtwb4"]
+animation = &"Jump"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lygdr"]
+animation = &"Run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i7gq0"]
+animation = &"Slide"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hassm"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_arof1"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5232h"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6d0nh"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0dxsm"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c3vlg"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1qhgr"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_576i0"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_okwij"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mduku"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pywbg"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ajj62"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n2dvw"]
+advance_mode = 0
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_py4ch"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mn0cw"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_505f0"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_07dij"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i4tec"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j7jd6"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3gjw3"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_x3uxu"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kr21t"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mq24x"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p205g"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8d2al"]
+switch_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3rnav"]
+states/Attack/node = SubResource("AnimationNodeAnimation_mgytj")
+states/Attack/position = Vector2(257.037, -120.431)
+states/Dash/node = SubResource("AnimationNodeAnimation_csi6u")
+states/Dash/position = Vector2(608.198, -120.561)
+states/Idle/node = SubResource("AnimationNodeAnimation_u0wxg")
+states/Idle/position = Vector2(437.3, -119.333)
+states/Jump/node = SubResource("AnimationNodeAnimation_wtwb4")
+states/Jump/position = Vector2(320.963, -6.1194)
+states/Run/node = SubResource("AnimationNodeAnimation_lygdr")
+states/Run/position = Vector2(437.284, -284.37)
+states/Slide/node = SubResource("AnimationNodeAnimation_i7gq0")
+states/Slide/position = Vector2(437.84, 76)
+states/Start/position = Vector2(118.667, -62.2222)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_hassm"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_arof1"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_5232h"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_6d0nh"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_0dxsm"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_c3vlg"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_1qhgr"), "Dash", "Run", SubResource("AnimationNodeStateMachineTransition_576i0"), "Run", "Dash", SubResource("AnimationNodeStateMachineTransition_okwij"), "Dash", "Idle", SubResource("AnimationNodeStateMachineTransition_mduku"), "Idle", "Jump", SubResource("AnimationNodeStateMachineTransition_pywbg"), "Jump", "Idle", SubResource("AnimationNodeStateMachineTransition_ajj62"), "Jump", "Run", SubResource("AnimationNodeStateMachineTransition_n2dvw"), "Run", "Jump", SubResource("AnimationNodeStateMachineTransition_py4ch"), "Jump", "Attack", SubResource("AnimationNodeStateMachineTransition_mn0cw"), "Attack", "Jump", SubResource("AnimationNodeStateMachineTransition_505f0"), "Idle", "Dash", SubResource("AnimationNodeStateMachineTransition_07dij"), "Idle", "Slide", SubResource("AnimationNodeStateMachineTransition_i4tec"), "Slide", "Idle", SubResource("AnimationNodeStateMachineTransition_j7jd6"), "Dash", "Slide", SubResource("AnimationNodeStateMachineTransition_3gjw3"), "Slide", "Dash", SubResource("AnimationNodeStateMachineTransition_x3uxu"), "Slide", "Jump", SubResource("AnimationNodeStateMachineTransition_kr21t"), "Jump", "Slide", SubResource("AnimationNodeStateMachineTransition_mq24x"), "Jump", "Dash", SubResource("AnimationNodeStateMachineTransition_p205g"), "Dash", "Jump", SubResource("AnimationNodeStateMachineTransition_8d2al")]
+graph_offset = Vector2(-151, -250)
+
+[sub_resource type="GDScript" id="GDScript_cmvi7"]
+
+[sub_resource type="GDScript" id="GDScript_7oalu"]
+script/source = "@tool
+@icon(\"res://addons/phantom_camera/icons/PhantomCameraHostIcon.svg\")
+class_name PhantomCameraHost
+extends Node
+
+#region Constants
+
+const PcamGroupNames = preload(\"res://addons/phantom_camera/scripts/group_names.gd\")
+
+#endregion
+
+
+#region Signals
+
+signal update_editor_viewfinder
+
+#endregion
+
+
+#region Variables
+
+var camera_2D: Camera2D
+var camera_3D: Camera3D
+var _pcam_list: Array[Node]
+
+var _active_pcam: Node
+var _active_pcam_priority: int = -1
+var _active_pcam_missing: bool = true
+var _active_pcam_has_damping: bool
+
+var _prev_active_pcam_2D_transform: Transform2D
+var _prev_active_pcam_3D_transform: Transform3D
+
+var trigger_pcam_tween: bool
+var tween_duration: float
+
+var multiple_pcam_hosts: bool
+
+var is_child_of_camera: bool = false
+var _is_2D: bool
+
+
+var viewfinder_scene = load(\"res://addons/phantom_camera/panel/viewfinder/viewfinder_panel.tscn\")
+var viewfinder_node: Control
+var viewfinder_needed_check: bool = true
+
+var camera_zoom: Vector2
+
+var _prev_camera_h_offset: float
+var _prev_camera_v_offset: float
+var _prev_camera_fov: float
+
+var _should_refresh_transform: bool
+var _active_pcam_2D_glob_transform: Transform2D
+var _active_pcam_3D_glob_transform: Transform3D
+
+#endregion
+
+
+#region Private Functions
+
+func _enter_tree() -> void:
+#	camera = get_parent()
+	var parent = get_parent()
+
+	if parent is Camera2D or parent is Camera3D:
+		is_child_of_camera = true
+		if parent is Camera2D:
+			_is_2D = true
+			camera_2D = parent
+			# Force applies position smoothing to be disabled
+			# This is to prevent overlap with the interpolation of the PCam2D.
+			camera_2D.set_position_smoothing_enabled(false)
+		else:
+			_is_2D = false
+			camera_3D = parent
+
+		add_to_group(PcamGroupNames.PCAM_HOST_GROUP_NAME)
+#		var already_multi_hosts: bool = multiple_pcam_hosts
+
+		_check_camera_host_amount()
+
+		if multiple_pcam_hosts:
+			printerr(
+				\"Only one PhantomCameraHost can exist in a scene\",
+				\"\\n\",
+				\"Multiple PhantomCameraHosts will be supported in https://github.com/MarcusSkov/phantom-camera/issues/26\"
+			)
+			queue_free()
+
+		for pcam in _get_pcam_node_group():
+			if not multiple_pcam_hosts:
+				pcam_added_to_scene(pcam)
+				pcam.assign_pcam_host()
+#			else:
+#				pcam.Properties.check_multiple_pcam_host_property(pcam, pca,_host_group, true)
+	else:
+		printerr(name, \" is not a child of a Camera2D or Camera3D\")
+
+
+func _exit_tree() -> void:
+	remove_from_group(PcamGroupNames.PCAM_HOST_GROUP_NAME)
+	_check_camera_host_amount()
+
+	for pcam in _get_pcam_node_group():
+		if not multiple_pcam_hosts:
+			pcam.Properties.check_multiple_pcam_host_property(pcam)
+
+
+func _ready() -> void:
+	if not is_instance_valid(_active_pcam): return
+
+	if _is_2D:
+		_active_pcam_2D_glob_transform = _active_pcam.get_global_transform()
+	else:
+		_active_pcam_3D_glob_transform = _active_pcam.get_global_transform()
+
+
+func _check_camera_host_amount() -> void:
+	if _get_pcam_host_group().size() > 1:
+		multiple_pcam_hosts = true
+	else:
+		multiple_pcam_hosts = false
+
+
+func _assign_new_active_pcam(pcam: Node) -> void:
+	var no_previous_pcam: bool
+
+	if _active_pcam:
+		if _is_2D:
+			_prev_active_pcam_2D_transform = camera_2D.get_global_transform()
+			_active_pcam.queue_redraw()
+		else:
+			_prev_active_pcam_3D_transform = camera_3D.get_global_transform()
+			_prev_camera_fov = camera_3D.get_fov()
+			_prev_camera_h_offset = camera_3D.get_h_offset()
+			_prev_camera_v_offset = camera_3D.get_v_offset()
+
+		_active_pcam.Properties.is_active = false
+		_active_pcam.became_inactive.emit()
+		
+		if trigger_pcam_tween:
+			_active_pcam.tween_interrupted.emit(pcam)
+	else:
+		no_previous_pcam = true
+
+	_active_pcam = pcam
+	_active_pcam_priority = pcam.get_priority()
+	_active_pcam_has_damping = pcam.Properties.follow_has_damping
+
+	_active_pcam.Properties.is_active = true
+	_active_pcam.became_active.emit()
+
+	if _is_2D:
+		camera_zoom = camera_2D.get_zoom()
+	else:
+		if _active_pcam.get_camera_3D_resource():
+			camera_3D.set_cull_mask(_active_pcam.get_camera_cull_mask())
+
+	if no_previous_pcam:
+		if _is_2D:
+			_prev_active_pcam_2D_transform = _active_pcam.get_global_transform()
+		else:
+			_prev_active_pcam_3D_transform = _active_pcam.get_global_transform()
+
+	tween_duration = 0
+	
+	if pcam.Properties.tween_onload or not pcam.Properties.has_tweened:
+		trigger_pcam_tween = true
+
+
+func _find_pcam_with_highest_priority() -> void:
+	for pcam in _pcam_list:
+		if pcam.get_priority() > _active_pcam_priority:
+			_assign_new_active_pcam(pcam)
+
+		pcam.Properties.has_tweened = false
+
+		_active_pcam_missing = false
+
+
+func _pcam_tween(delta: float) -> void:
+	# Run at the first tween frame
+	if tween_duration == 0:
+		_active_pcam.tween_started.emit()
+		
+		if _is_2D:
+			_active_pcam.reset_limit_all_sides()
+
+	tween_duration += delta
+	_active_pcam.is_tweening.emit()
+
+	if _is_2D:
+		var interpolation_destination: Vector2 = _tween_interpolate_value(_prev_active_pcam_2D_transform.origin, _active_pcam_2D_glob_transform.origin)
+
+		if _active_pcam.pixel_perfect:
+			camera_2D.set_global_position(interpolation_destination.round())
+		else:
+			camera_2D.set_global_position(interpolation_destination)
+
+		camera_2D.set_zoom(
+			_tween_interpolate_value(camera_zoom, _active_pcam.zoom)
+		)
+	else:
+		camera_3D.set_global_position(
+			_tween_interpolate_value(_prev_active_pcam_3D_transform.origin, _active_pcam_3D_glob_transform.origin)
+		)
+
+		var prev_active_pcam_3D_basis = Quaternion(_prev_active_pcam_3D_transform.basis.orthonormalized())
+		camera_3D.set_quaternion(
+			Tween.interpolate_value(
+				prev_active_pcam_3D_basis, \\
+				prev_active_pcam_3D_basis.inverse() * Quaternion(_active_pcam_3D_glob_transform.basis.orthonormalized()),
+				tween_duration, \\
+				_active_pcam.get_tween_duration(), \\
+				_active_pcam.get_tween_transition(),
+				_active_pcam.get_tween_ease(),
+			)
+		)
+
+		if _prev_camera_fov != _active_pcam.get_camera_fov() and _active_pcam.get_camera_3D_resource():
+			camera_3D.set_fov(
+				_tween_interpolate_value(_prev_camera_fov, _active_pcam.get_camera_fov())
+			)
+
+		if _prev_camera_h_offset != _active_pcam.get_camera_h_offset() and _active_pcam.get_camera_3D_resource():
+			camera_3D.set_h_offset(
+				_tween_interpolate_value(_prev_camera_h_offset, _active_pcam.get_camera_h_offset())
+			)
+
+		if _prev_camera_v_offset != _active_pcam.get_camera_v_offset() and _active_pcam.get_camera_3D_resource():
+			camera_3D.set_v_offset(
+				_tween_interpolate_value(_prev_camera_v_offset, _active_pcam.get_camera_v_offset())
+			)
+
+
+func _tween_interpolate_value(from: Variant, to: Variant) -> Variant:
+	return Tween.interpolate_value(
+		from, \\
+		to - from,
+		tween_duration, \\
+		_active_pcam.get_tween_duration(), \\
+		_active_pcam.get_tween_transition(),
+		_active_pcam.get_tween_ease(),
+	)
+
+
+func _pcam_follow(delta: float) -> void:
+	if not _active_pcam: return
+
+	if _is_2D:
+		if _active_pcam.pixel_perfect:
+			var pixel_perfect_glob_transform := _active_pcam_2D_glob_transform
+			pixel_perfect_glob_transform.origin = pixel_perfect_glob_transform.origin.round()
+			camera_2D.set_global_transform(pixel_perfect_glob_transform)
+		else:
+			camera_2D.set_global_transform(_active_pcam_2D_glob_transform)
+		if _active_pcam.Properties.has_follow_group:
+			if _active_pcam.Properties.follow_has_damping:
+				camera_2D.zoom = camera_2D.zoom.lerp(_active_pcam.zoom, delta * _active_pcam.Properties.follow_damping_value)
+			else:
+				camera_2D.set_zoom(_active_pcam.zoom)
+		else:
+			camera_2D.set_zoom(_active_pcam.zoom)
+	else:
+		camera_3D.set_global_transform(_active_pcam_3D_glob_transform)
+
+
+func _refresh_transform() -> void:
+	if _is_2D:
+		_active_pcam_2D_glob_transform = _active_pcam.get_global_transform()
+	else:
+		_active_pcam_3D_glob_transform = _active_pcam.get_global_transform()
+
+
+func _process_pcam(delta: float) -> void:
+	if _active_pcam_missing or not is_child_of_camera: return
+	# When following
+	if not trigger_pcam_tween:
+		_pcam_follow(delta)
+
+		if viewfinder_needed_check:
+			show_viewfinder_in_play()
+			viewfinder_needed_check = false
+
+		if Engine.is_editor_hint():
+			if not _is_2D:
+				if _active_pcam.get_camera_3D_resource():
+					camera_3D.set_fov(_active_pcam.get_camera_fov())
+					camera_3D.set_h_offset(_active_pcam.get_camera_h_offset())
+					camera_3D.set_v_offset(_active_pcam.get_camera_v_offset())
+
+	# When tweening
+	else:
+		if tween_duration + delta <= _active_pcam.get_tween_duration():
+			_pcam_tween(delta)
+		else: # First frame when tweening completes
+			tween_duration = 0
+			trigger_pcam_tween = false
+
+			show_viewfinder_in_play()
+			_pcam_follow(delta)
+			_active_pcam.tween_completed.emit()
+			
+			if _is_2D:
+				_active_pcam.update_limit_all_sides()
+			
+				if Engine.is_editor_hint():
+					_active_pcam.queue_redraw()
+
+
+func _get_pcam_node_group() -> Array[Node]:
+	return get_tree().get_nodes_in_group(PcamGroupNames.PCAM_GROUP_NAME)
+
+
+func _get_pcam_host_group() -> Array[Node]:
+	return get_tree().get_nodes_in_group(PcamGroupNames.PCAM_HOST_GROUP_NAME)
+
+
+func _process(delta):
+	if not is_instance_valid(_active_pcam): return
+
+	if _should_refresh_transform:
+#		_refresh_transform()
+		if _is_2D:
+			_active_pcam_2D_glob_transform = _active_pcam.get_global_transform()
+		else:
+			_active_pcam_3D_glob_transform = _active_pcam.get_global_transform()
+
+		_should_refresh_transform = false
+
+	_process_pcam(delta)
+
+
+func _physics_process(delta: float) -> void:
+	_should_refresh_transform = true
+
+#endregion
+
+
+#region Public Functions
+
+func show_viewfinder_in_play() -> void:
+	if _active_pcam.Properties.show_viewfinder_in_play:
+		if not Engine.is_editor_hint() && OS.has_feature(\"editor\"): # Only appears when running in the editor
+			var canvas_layer: CanvasLayer = CanvasLayer.new()
+			get_tree().get_root().get_child(0).add_child(canvas_layer)
+
+			viewfinder_node = viewfinder_scene.instantiate()
+			canvas_layer.add_child(viewfinder_node)
+	else:
+		if viewfinder_node:
+			viewfinder_node.queue_free()
+
+
+func pcam_added_to_scene(pcam: Node) -> void:
+	_pcam_list.append(pcam)
+	
+	if not pcam.Properties.tween_onload:
+		pcam.Properties.has_tweened = true # Skips its tween if it has the highest priority onload
+
+	_find_pcam_with_highest_priority()
+
+
+func pcam_removed_from_scene(pcam) -> void:
+	_pcam_list.erase(pcam)
+	if pcam == _active_pcam:
+		_active_pcam_missing = true
+		_active_pcam_priority = -1
+		_find_pcam_with_highest_priority()
+
+
+func pcam_priority_updated(pcam: Node) -> void:
+	if Engine.is_editor_hint() and _active_pcam.Properties.priority_override: return
+
+	if not is_instance_valid(pcam): return
+
+	var current_pcam_priority: int = pcam.get_priority()
+
+	if current_pcam_priority >= _active_pcam_priority and pcam != _active_pcam:
+		_assign_new_active_pcam(pcam)
+	elif pcam == _active_pcam:
+		if current_pcam_priority <= _active_pcam_priority:
+			_active_pcam_priority = current_pcam_priority
+			_find_pcam_with_highest_priority()
+		else:
+			_active_pcam_priority = current_pcam_priority
+
+
+func pcam_priority_override(pcam: Node) -> void:
+	if Engine.is_editor_hint() and _active_pcam.Properties.priority_override:
+		_active_pcam.Properties.priority_override = false
+
+	_assign_new_active_pcam(pcam)
+	update_editor_viewfinder.emit()
+
+func pcam_priority_override_disabled() -> void:
+	update_editor_viewfinder.emit()
+
+
+func get_active_pcam() -> Node:
+	return _active_pcam
+
+#endregion
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_46lp1"]
+radius = 5.68784
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5vvgt"]
+radius = 19.8274
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3khjw"]
+
+[sub_resource type="GDScript" id="GDScript_850jv"]
+script/source = "@tool
+@icon(\"res://addons/phantom_camera/icons/PhantomCameraIcon2D.svg\")
+class_name PhantomCamera2D
+extends Node2D
+
+#region Constants
+
+const Constants = preload(\"res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_constants.gd\")
+
+const FRAME_PREVIEW: StringName = \"frame_preview\"
+
+const PIXEL_PERFECT_PROPERTY_NAME: StringName = \"pixel_perfect\"
+
+const ZOOM_PROPERTY_NAME: StringName = \"zoom\"
+
+const FOLLOW_GROUP_ZOOM_AUTO: StringName = Constants.FOLLOW_PARAMETERS_NAME + \"auto_zoom\"
+const FOLLOW_GROUP_ZOOM_MIN: StringName = Constants.FOLLOW_PARAMETERS_NAME + \"min_zoom\"
+const FOLLOW_GROUP_ZOOM_MAX: StringName = Constants.FOLLOW_PARAMETERS_NAME + \"max_zoom\"
+const FOLLOW_GROUP_ZOOM_MARGIN: StringName = Constants.FOLLOW_PARAMETERS_NAME + \"zoom_margin\"
+
+const CAMERA_2D_LIMIT: StringName = \"limit/\"
+
+const DRAW_LIMITS: StringName = CAMERA_2D_LIMIT + \"draw_limits\"  
+const LIMIT_LEFT: StringName = CAMERA_2D_LIMIT + \"left\"  
+const LIMIT_TOP: StringName = CAMERA_2D_LIMIT + \"top\"  
+const LIMIT_RIGHT: StringName = CAMERA_2D_LIMIT + \"right\"  
+const LIMIT_BOTTOM: StringName = CAMERA_2D_LIMIT + \"bottom\"  
+const LIMIT_SMOOTHED: StringName = CAMERA_2D_LIMIT + \"smoothed\"  
+const LIMIT_NODE_PATH_PROPERTY_NAME: StringName = CAMERA_2D_LIMIT + \"limit_node_target\"
+const LIMIT_MARGIN_PROPERTY_NAME: StringName = CAMERA_2D_LIMIT + \"margin\"
+
+#endregion
+
+
+#region Signals
+
+## Emitted when the PhantomCamera2D becomes active.
+signal became_active
+## Emitted when the PhantomCamera2D becomes inactive.
+signal became_inactive
+
+## Emitted when the Camera2D starts to tween to the PhantomCamera2D.
+signal tween_started
+## Emitted when the Camera2D is to tweening to the PhantomCamera2D.
+signal is_tweening
+## Emitted when the tween is interrupted due to another PhantomCamera2D becoming active.
+## The argument is the PhantomCamera2D that interrupted the tween.
+signal tween_interrupted(pcam_2d: PhantomCamera2D)
+## Emitted when the Camera2D completes its tween to the PhantomCamera2D.
+signal tween_completed
+
+#endregion
+
+
+#region Variables
+
+var Properties = preload(\"res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_properties.gd\").new()
+
+# BUG Unable to call the variable `Zoom`
+# due to a bug where the setter doesn't properly register changes to it
+var camera_zoom: Vector2 = Vector2.ONE
+
+var _frame_preview: bool = true
+
+var pixel_perfect: bool
+
+var follow_group_zoom_auto: bool
+var follow_group_zoom_min: float = 1
+var follow_group_zoom_max: float = 5
+var follow_group_zoom_margin: Vector4
+
+static var draw_limits: bool
+var _limit_default: int = 10000000
+var _limit_sides: Vector4i
+var _limit_sides_default: Vector4i = Vector4i(-_limit_default, -_limit_default, _limit_default, _limit_default)
+var limit_left: int = -_limit_default
+var limit_top: int = -_limit_default
+var limit_right: int = _limit_default  
+var limit_bottom: int = _limit_default
+var limit_node_path: NodePath
+var limit_margin: Vector4i
+var limit_smoothed: bool
+var limit_inactive_pcam: bool
+
+var _camera_offset: Vector2
+
+#endregion
+
+
+#region Properties
+
+func _get_property_list() -> Array:
+	var property_list: Array[Dictionary]
+	property_list.append_array(Properties.add_priority_properties())
+
+	property_list.append({
+		\"name\": ZOOM_PROPERTY_NAME,
+		\"type\": TYPE_VECTOR2,
+		\"hint\": PROPERTY_HINT_LINK
+	})
+
+	property_list.append_array(Properties.add_follow_mode_property())
+
+	if Properties.follow_mode != Constants.FollowMode.NONE:
+		property_list.append_array(Properties.add_follow_target_property())
+
+	if Properties.follow_mode == Constants.FollowMode.GROUP:
+		property_list.append({
+			\"name\": FOLLOW_GROUP_ZOOM_AUTO,
+			\"type\": TYPE_BOOL,
+			\"hint\": PROPERTY_HINT_NONE,
+			\"usage\": PROPERTY_USAGE_DEFAULT,
+		})
+		if follow_group_zoom_auto:
+			property_list.append({
+				\"name\": FOLLOW_GROUP_ZOOM_MIN,
+				\"type\": TYPE_FLOAT,
+				\"hint\": PROPERTY_HINT_RANGE,
+				\"hint_string\": \"0.01, 100, 0.01,\",
+				\"usage\": PROPERTY_USAGE_DEFAULT,
+			})
+
+			property_list.append({
+				\"name\": FOLLOW_GROUP_ZOOM_MAX,
+				\"type\": TYPE_FLOAT,
+				\"hint\": PROPERTY_HINT_RANGE,
+				\"hint_string\": \"0.01, 100, 0.01,\",
+				\"usage\": PROPERTY_USAGE_DEFAULT,
+			})
+
+			property_list.append({
+				\"name\": FOLLOW_GROUP_ZOOM_MARGIN,
+				\"type\": TYPE_VECTOR4,
+				\"hint\": PROPERTY_HINT_RANGE,
+				\"hint_string\": \"0, 100, 0.01,\",
+				\"usage\": PROPERTY_USAGE_DEFAULT,
+			})
+
+	property_list.append_array(Properties.add_follow_properties())
+	property_list.append_array(Properties.add_follow_framed())
+
+	property_list.append({
+		\"name\": FRAME_PREVIEW,
+		\"type\": TYPE_BOOL,
+	})
+
+	property_list.append({
+		\"name\": PIXEL_PERFECT_PROPERTY_NAME,
+		\"type\": TYPE_BOOL,
+		\"hint\": PROPERTY_HINT_NONE,
+		\"usage\": PROPERTY_USAGE_DEFAULT,
+	})
+
+	property_list.append({
+		\"name\": DRAW_LIMITS,
+		\"type\": TYPE_BOOL
+	})
+
+	if limit_node_path.is_empty():
+		property_list.append({
+			\"name\": LIMIT_LEFT,
+			\"type\": TYPE_INT
+		})
+		property_list.append({
+			\"name\": LIMIT_TOP,
+			\"type\": TYPE_INT
+		})
+		property_list.append({
+			\"name\": LIMIT_RIGHT,
+			\"type\": TYPE_INT
+		})
+		property_list.append({
+			\"name\": LIMIT_BOTTOM,
+			\"type\": TYPE_INT
+		})
+
+	property_list.append({
+		\"name\": LIMIT_NODE_PATH_PROPERTY_NAME,
+		\"type\": TYPE_NODE_PATH,
+		\"hint\": PROPERTY_HINT_NODE_PATH_VALID_TYPES,
+		\"hint_string\": \"TileMap\" + \",\" + \"CollisionShape2D\",
+	})
+
+	if limit_node_path:
+		property_list.append({
+			\"name\": LIMIT_MARGIN_PROPERTY_NAME,
+			\"type\": TYPE_VECTOR4I,
+		})
+	property_list.append({
+		\"name\": LIMIT_SMOOTHED,
+		\"type\": TYPE_BOOL
+	})
+
+	property_list.append_array(Properties.add_tween_properties())
+
+	property_list.append_array(Properties.add_secondary_properties())
+
+	return property_list
+
+#endregion
+
+
+#region _set
+
+func _set(property: StringName, value) -> bool:
+	Properties.set_priority_property(property, value, self)
+
+	# ZOOM
+	if property == ZOOM_PROPERTY_NAME:
+		camera_zoom = Vector2(absf(value.x), absf(value.y))
+		queue_redraw()
+
+	# ZOOM CLAMP
+	if property == FOLLOW_GROUP_ZOOM_AUTO:
+		follow_group_zoom_auto = value
+		notify_property_list_changed()
+
+	if property == FOLLOW_GROUP_ZOOM_MIN:
+		if value > 0:
+			follow_group_zoom_min = value
+		else:
+			follow_group_zoom_min = 0
+
+	if property == FOLLOW_GROUP_ZOOM_MAX:
+		if value > 0:
+			follow_group_zoom_max = value
+		else:
+			follow_group_zoom_max = 0
+
+	if property == FOLLOW_GROUP_ZOOM_MARGIN:
+		follow_group_zoom_margin = value
+
+	if property == PIXEL_PERFECT_PROPERTY_NAME:
+		pixel_perfect = value
+
+	Properties.set_follow_properties(property, value, self)
+	Properties.set_tween_properties(property, value, self)
+	Properties.set_secondary_properties(property, value, self)
+	
+	if property == DRAW_LIMITS:
+		draw_limits = value
+		if Engine.is_editor_hint():
+			_draw_camera_2d_limit()
+	
+	# TODO - Move other properties to use this match (switch) statement
+	match property:
+		LIMIT_LEFT:
+			limit_left = value
+			update_limit_all_sides()
+		LIMIT_TOP:
+			limit_top = value
+			update_limit_all_sides()
+		LIMIT_RIGHT:
+			limit_right = value
+			update_limit_all_sides()
+		LIMIT_BOTTOM:
+			limit_bottom = value
+			update_limit_all_sides()
+
+	if property == LIMIT_SMOOTHED:
+		limit_smoothed = value
+	
+	if property == LIMIT_NODE_PATH_PROPERTY_NAME:
+		_set_limit_node(value)
+
+	if property == LIMIT_MARGIN_PROPERTY_NAME:
+		limit_margin = value
+		update_limit_all_sides()
+
+	if property == FRAME_PREVIEW:
+		_frame_preview = true if value == null else value
+		queue_redraw()
+
+	return false
+
+
+func _set_limit_node(value: NodePath) -> void:
+	set_notify_transform(false)
+	
+	# Waits for PCam2d's _ready() before trying to validate limit_node_path 
+	if not is_node_ready(): await ready
+	
+	# Removes signal from existing TileMap node
+	if is_instance_valid(get_node_or_null(limit_node_path)):
+		var prev_limit_node: Node2D = get_node(limit_node_path)
+		if prev_limit_node is TileMap:
+			if prev_limit_node.changed.is_connected(_on_tile_map_changed):
+				prev_limit_node.changed.disconnect(_on_tile_map_changed)
+	
+	var limit_node: Node2D = get_node_or_null(value)
+	
+	if is_instance_valid(limit_node):
+		if limit_node is TileMap:
+			var tile_map_node: TileMap = get_node(value)
+			tile_map_node.changed.connect(_on_tile_map_changed)
+
+		elif limit_node is CollisionShape2D:
+			var col_shape: CollisionShape2D = get_node(value)
+			if col_shape.get_shape() == null:
+				printerr(\"No Shape2D in: \", col_shape.name)
+				value = NodePath()
+			else:
+				set_notify_transform(true)
+
+	limit_node_path = value
+
+	notify_property_list_changed()
+	update_limit_all_sides()
+
+#endregion
+
+
+#region _get
+
+func _get(property: StringName):
+	if property == Constants.PRIORITY_OVERRIDE: 						return Properties.priority_override
+	if property == Constants.PRIORITY_PROPERTY_NAME: 					return Properties.priority
+
+	if property == ZOOM_PROPERTY_NAME: 									return camera_zoom
+
+	if property == Constants.FOLLOW_MODE_PROPERTY_NAME: 				return Properties.follow_mode
+	if property == Constants.FOLLOW_TARGET_OFFSET_PROPERTY_NAME:		return Properties.follow_target_offset_2D
+	if property == Constants.FOLLOW_TARGET_PROPERTY_NAME: 				return Properties.follow_target_path
+	if property == Constants.FOLLOW_GROUP_PROPERTY_NAME: 				return Properties.follow_group_paths
+
+	if property == Constants.FOLLOW_PATH_PROPERTY_NAME: 				return Properties.follow_path_path
+
+	if property == Constants.FOLLOW_FRAMED_DEAD_ZONE_HORIZONTAL_NAME:	return Properties.follow_framed_dead_zone_width
+	if property == Constants.FOLLOW_FRAMED_DEAD_ZONE_VERTICAL_NAME:		return Properties.follow_framed_dead_zone_height
+	if property == Constants.FOLLOW_VIEWFINDER_IN_PLAY_NAME:			return Properties.show_viewfinder_in_play
+
+	if property == PIXEL_PERFECT_PROPERTY_NAME:        					return pixel_perfect
+	
+	if property == FOLLOW_GROUP_ZOOM_AUTO:								return follow_group_zoom_auto
+	if property == FOLLOW_GROUP_ZOOM_MIN: 								return follow_group_zoom_min
+	if property == FOLLOW_GROUP_ZOOM_MAX: 								return follow_group_zoom_max
+	if property == FOLLOW_GROUP_ZOOM_MARGIN:							return follow_group_zoom_margin
+
+	if property == Constants.FOLLOW_DAMPING_NAME: 						return Properties.follow_has_damping
+	if property == Constants.FOLLOW_DAMPING_VALUE_NAME: 				return Properties.follow_damping_value
+
+	if property == Constants.TWEEN_RESOURCE_PROPERTY_NAME:				return Properties.tween_resource
+
+	if property == Constants.INACTIVE_UPDATE_MODE_PROPERTY_NAME:		return Properties.inactive_update_mode
+	if property == Constants.TWEEN_ONLOAD_NAME: 						return Properties.tween_onload
+	
+	if property == DRAW_LIMITS:											return draw_limits
+	if property == LIMIT_LEFT:											return limit_left
+	if property == LIMIT_TOP:											return limit_top
+	if property == LIMIT_RIGHT:											return limit_right
+	if property == LIMIT_BOTTOM:										return limit_bottom
+	if property == LIMIT_NODE_PATH_PROPERTY_NAME:						return limit_node_path
+	if property == LIMIT_MARGIN_PROPERTY_NAME:							return limit_margin
+	if property == LIMIT_SMOOTHED:										return limit_smoothed
+	
+	if property == FRAME_PREVIEW: 										return _frame_preview
+
+#endregion
+
+
+#region _property_can_revert
+
+func _property_can_revert(property: StringName) -> bool:
+	match property:
+		Constants.PRIORITY_OVERRIDE: 									return true
+		Constants.PRIORITY_PROPERTY_NAME: 								return true
+		
+		ZOOM_PROPERTY_NAME: 											return true
+		
+		Constants.FOLLOW_TARGET_PROPERTY_NAME: 							return true
+		Constants.FOLLOW_TARGET_OFFSET_PROPERTY_NAME: 					return true
+		
+		Constants.FOLLOW_FRAMED_DEAD_ZONE_HORIZONTAL_NAME: 				return true
+		Constants.FOLLOW_FRAMED_DEAD_ZONE_VERTICAL_NAME: 				return true
+		Constants.FOLLOW_VIEWFINDER_IN_PLAY_NAME:						return true
+		
+		Constants.FOLLOW_DAMPING_NAME: 									return true
+		Constants.FOLLOW_DAMPING_VALUE_NAME: 							return true
+		
+		Constants.INACTIVE_UPDATE_MODE_PROPERTY_NAME: 					return true
+		Constants.TWEEN_ONLOAD_NAME: 									return true
+		
+		PIXEL_PERFECT_PROPERTY_NAME: 									return true
+		
+		DRAW_LIMITS: 													return true
+		LIMIT_LEFT: 													return true
+		LIMIT_TOP:														return true
+		LIMIT_RIGHT: 													return true
+		LIMIT_BOTTOM: 													return true
+		LIMIT_NODE_PATH_PROPERTY_NAME: 									return true
+		LIMIT_MARGIN_PROPERTY_NAME: 									return true
+		LIMIT_SMOOTHED: 												return true
+		
+		FRAME_PREVIEW: 													return true
+		
+		_:
+			return false
+
+#endregion
+
+
+#region _property_get_revert
+
+func _property_get_revert(property: StringName):
+	match property:
+		Constants.PRIORITY_OVERRIDE: 									return false
+		Constants.PRIORITY_PROPERTY_NAME: 								return 0
+		
+		ZOOM_PROPERTY_NAME:												return Vector2.ONE
+		
+		Constants.FOLLOW_TARGET_PROPERTY_NAME:							return NodePath()
+		Constants.FOLLOW_TARGET_OFFSET_PROPERTY_NAME: 					return Vector2.ZERO
+		
+		Constants.FOLLOW_FRAMED_DEAD_ZONE_HORIZONTAL_NAME: 				return 0.5
+		Constants.FOLLOW_FRAMED_DEAD_ZONE_VERTICAL_NAME: 				return 0.5
+		Constants.FOLLOW_VIEWFINDER_IN_PLAY_NAME:						return false
+		
+		Constants.FOLLOW_DAMPING_NAME: 									return false
+		Constants.FOLLOW_DAMPING_VALUE_NAME: 							return 10.0
+		
+		Constants.INACTIVE_UPDATE_MODE_PROPERTY_NAME: 					return Constants.InactiveUpdateMode.ALWAYS
+		Constants.TWEEN_ONLOAD_NAME: 									return true
+		
+		PIXEL_PERFECT_PROPERTY_NAME: 									return false
+		
+		DRAW_LIMITS: 													return true
+		LIMIT_LEFT: 													return -10000000
+		LIMIT_TOP: 														return -10000000
+		LIMIT_RIGHT: 													return 10000000
+		LIMIT_BOTTOM: 													return 10000000
+		LIMIT_NODE_PATH_PROPERTY_NAME: 									return NodePath()
+		LIMIT_MARGIN_PROPERTY_NAME: 									return Vector4i.ZERO
+		LIMIT_SMOOTHED: 												return false
+		
+		FRAME_PREVIEW: 													return true
+
+#endregion
+
+
+#region Private Functions
+
+func _enter_tree() -> void:
+	Properties.is_2D = true
+	Properties.camera_enter_tree(self)
+	Properties.assign_pcam_host(self)
+
+	update_limit_all_sides()
+
+func _exit_tree() -> void:
+	if Properties.pcam_host_owner:
+		Properties.pcam_host_owner.pcam_removed_from_scene(self)
+
+	Properties.pcam_exit_tree(self)
+
+
+func _process(delta: float) -> void:
+	if not Properties.is_active:
+		match Properties.inactive_update_mode:
+			Constants.InactiveUpdateMode.NEVER:
+				return
+			Constants.InactiveUpdateMode.ALWAYS:
+				# Only triggers if limit isn't default
+				if limit_inactive_pcam:
+					set_global_position(
+						_set_limit_clamp_position(get_global_position())
+					)
+#			Constants.InactiveUpdateMode.EXPONENTIALLY:
+#				TODO
+
+	if not Properties.should_follow: return
+
+	match Properties.follow_mode:
+		Constants.FollowMode.GLUED:
+			if Properties.follow_target_node:
+				_set_pcam_global_position(Properties.follow_target_node.get_global_position(), delta)
+		Constants.FollowMode.SIMPLE:
+			if Properties.follow_target_node:
+				_set_pcam_global_position(_target_position_with_offset(), delta)
+		Constants.FollowMode.GROUP:
+			if Properties.has_follow_group:
+				if Properties.follow_group_nodes_2D.size() == 1:
+					_set_pcam_global_position(Properties.follow_group_nodes_2D[0].get_global_position(), delta)
+				else:
+					var rect: Rect2 = Rect2(Properties.follow_group_nodes_2D[0].get_global_position(), Vector2.ZERO)
+					for node in Properties.follow_group_nodes_2D:
+						rect = rect.expand(node.get_global_position())
+						if follow_group_zoom_auto:
+							rect = rect.grow_individual(
+								follow_group_zoom_margin.x,
+								follow_group_zoom_margin.y,
+								follow_group_zoom_margin.z,
+								follow_group_zoom_margin.w)
+#						else:
+#							rect = rect.grow_individual(-80, 0, 0, 0)
+					if follow_group_zoom_auto:
+						var screen_size: Vector2 = get_viewport_rect().size
+						if rect.size.x > rect.size.y * screen_size.aspect():
+							camera_zoom = clamp(screen_size.x / rect.size.x, follow_group_zoom_min, follow_group_zoom_max) * Vector2.ONE
+						else:
+							camera_zoom = clamp(screen_size.y / rect.size.y, follow_group_zoom_min, follow_group_zoom_max) * Vector2.ONE
+					_set_pcam_global_position(rect.get_center(), delta)
+		Constants.FollowMode.PATH:
+				if Properties.follow_target_node and Properties.follow_path_node:
+					var path_position: Vector2 = Properties.follow_path_node.get_global_position()
+					_set_pcam_global_position(
+						Properties.follow_path_node.curve.get_closest_point(
+							Properties.follow_target_node.get_global_position() - path_position
+						) + path_position,
+						delta)
+		Constants.FollowMode.FRAMED:
+			if Properties.follow_target_node:
+				if not Engine.is_editor_hint():
+					Properties.viewport_position = (get_follow_target_node().get_global_transform_with_canvas().get_origin() + Properties.follow_target_offset_2D) / get_viewport_rect().size
+
+					if Properties.get_framed_side_offset() != Vector2.ZERO:
+						var glo_pos: Vector2
+
+						var target_position: Vector2 = _target_position_with_offset() + _camera_offset
+						var dead_zone_width: float = Properties.follow_framed_dead_zone_width
+						var dead_zone_height: float = Properties.follow_framed_dead_zone_height
+
+						if dead_zone_width == 0 || dead_zone_height == 0:
+							if dead_zone_width == 0 && dead_zone_height != 0:
+								_set_pcam_global_position(_target_position_with_offset(), delta)
+							elif dead_zone_width != 0 && dead_zone_height == 0:
+								glo_pos = _target_position_with_offset()
+								glo_pos.x += target_position.x - global_position.x
+								_set_pcam_global_position(glo_pos, delta)
+							else:
+								_set_pcam_global_position(_target_position_with_offset(), delta)
+						else:
+							_set_pcam_global_position(target_position, delta)
+					else:
+						_camera_offset = get_global_position() - _target_position_with_offset()
+				else:
+					_set_pcam_global_position(_target_position_with_offset(), delta)
+
+
+func _set_pcam_global_position(_global_position: Vector2, delta: float) -> void:
+	if limit_inactive_pcam and not Properties.has_tweened:
+		_global_position = _set_limit_clamp_position(_global_position)
+
+	if Properties.follow_has_damping:
+		set_global_position(
+			get_global_position().lerp(
+				_global_position,
+				delta * Properties.follow_damping_value
+			)
+		)
+	else:
+		set_global_position(_global_position)
+
+
+func _set_limit_clamp_position(value: Vector2) -> Vector2i:
+	var camera_frame_rect_size: Vector2 = _camera_frame_rect().size
+	value.x = clampf(value.x, _limit_sides.x + camera_frame_rect_size.x / 2, _limit_sides.z - camera_frame_rect_size.x / 2)
+	value.y = clampf(value.y, _limit_sides.y + camera_frame_rect_size.y / 2, _limit_sides.w - camera_frame_rect_size.y / 2)
+	return value
+
+
+func _draw():
+	if not Engine.is_editor_hint(): return
+
+	if _frame_preview or not is_active():
+		var screen_size_width: int = ProjectSettings.get_setting(\"display/window/size/viewport_width\")
+		var screen_size_height: int = ProjectSettings.get_setting(\"display/window/size/viewport_height\")
+		var screen_size_zoom: Vector2 = Vector2(screen_size_width / get_zoom().x, screen_size_height / get_zoom().y)
+		
+		draw_rect(_camera_frame_rect(), Color(\"3ab99a\"), false, 2)
+
+
+func _camera_frame_rect() -> Rect2:
+	var screen_size_width: int = ProjectSettings.get_setting(\"display/window/size/viewport_width\")
+	var screen_size_height: int = ProjectSettings.get_setting(\"display/window/size/viewport_height\")
+	var screen_size_zoom: Vector2 = Vector2(screen_size_width / get_zoom().x, screen_size_height / get_zoom().y)
+	
+	return Rect2(-screen_size_zoom / 2, screen_size_zoom)
+
+
+func _notification(what):
+	if what == NOTIFICATION_TRANSFORM_CHANGED:
+		if Engine.is_editor_hint(): # Used for updating Limit when a CollisionShape2D is applied
+			if not is_active():
+				update_limit_all_sides()
+
+
+func _on_tile_map_changed() -> void:
+	update_limit_all_sides()
+
+
+func _target_position_with_offset() -> Vector2:
+	return Properties.follow_target_node.get_global_position() + Properties.follow_target_offset_2D
+
+
+func _has_valid_pcam_owner() -> bool:
+	if not is_instance_valid(get_pcam_host_owner()): return false
+	if not is_instance_valid(get_pcam_host_owner().camera_2D): return false
+	return true
+
+
+func _draw_camera_2d_limit() -> void:
+	if _has_valid_pcam_owner():
+		get_pcam_host_owner().camera_2D.set_limit_drawing_enabled(draw_limits)
+
+
+func _check_limit_is_not_default() -> void:
+	if _limit_sides == _limit_sides_default:
+		limit_inactive_pcam = false
+	else:
+		limit_inactive_pcam = true
+
+
+func _set_camera_2d_limit(side: int, limit: int) -> void:
+	if not _has_valid_pcam_owner(): return
+	if not is_active(): return
+	get_pcam_host_owner().camera_2D.set_limit(side, limit)
+
+#endregion
+
+
+#region Public Functions
+
+func update_limit_all_sides() -> void:
+	var limit_node = get_node_or_null(limit_node_path)
+	
+	var limit_rect: Rect2
+	
+	if not is_instance_valid(limit_node):
+		_limit_sides.y = limit_top
+		_limit_sides.x = limit_left
+		_limit_sides.z = limit_right
+		_limit_sides.w = limit_bottom
+	elif limit_node is TileMap:
+		var tile_map: TileMap = limit_node as TileMap
+		var tile_map_size: Vector2 = Vector2(tile_map.get_used_rect().size) * Vector2(tile_map.tile_set.tile_size) * tile_map.get_scale()
+		var tile_map_position: Vector2 = tile_map.get_global_position() + Vector2(tile_map.get_used_rect().position) * Vector2(tile_map.tile_set.tile_size) * tile_map.get_scale()
+
+		## Calculates the Rect2 based on the Tile Map position and size
+		limit_rect = Rect2(tile_map_position, tile_map_size)
+
+		## Calculates the Rect2 based on the Tile Map position and size + margin
+		limit_rect = Rect2(
+			limit_rect.position + Vector2(limit_margin.x, limit_margin.y),
+			limit_rect.size - Vector2(limit_margin.x, limit_margin.y) - Vector2(limit_margin.z, limit_margin.w)
+		)
+		
+		# Left
+		_limit_sides.x = roundi(limit_rect.position.x)
+		# Top
+		_limit_sides.y = roundi(limit_rect.position.y)
+		# Right
+		_limit_sides.z = roundi(limit_rect.position.x + limit_rect.size.x)
+		# Bottom
+		_limit_sides.w = roundi(limit_rect.position.y + limit_rect.size.y)
+	elif limit_node is CollisionShape2D:
+		var collision_shape_2d = limit_node as CollisionShape2D
+		
+		if not collision_shape_2d.get_shape(): return
+		
+		var shape_2d: Shape2D = collision_shape_2d.get_shape()
+		var shape_2d_size: Vector2 = shape_2d.get_rect().size
+		var shape_2d_position: Vector2 = collision_shape_2d.get_global_position() + Vector2(shape_2d.get_rect().position)
+
+		## Calculates the Rect2 based on the Tile Map position and size
+		limit_rect = Rect2(shape_2d_position, shape_2d_size)
+
+		## Calculates the Rect2 based on the Tile Map position and size + margin
+		limit_rect = Rect2(
+			limit_rect.position + Vector2(limit_margin.x, limit_margin.y),
+			limit_rect.size - Vector2(limit_margin.x, limit_margin.y) - Vector2(limit_margin.z, limit_margin.w)
+		)
+
+		# Left
+		_limit_sides.x = roundi(limit_rect.position.x)
+		# Top
+		_limit_sides.y = roundi(limit_rect.position.y)
+		# Right
+		_limit_sides.z = roundi(limit_rect.position.x + limit_rect.size.x)
+		# Bottom
+		_limit_sides.w = roundi(limit_rect.position.y + limit_rect.size.y)
+	
+	_check_limit_is_not_default()
+
+	if is_active() and _has_valid_pcam_owner():
+		_set_camera_2d_limit(SIDE_LEFT, _limit_sides.x)
+		_set_camera_2d_limit(SIDE_TOP, _limit_sides.y)
+		_set_camera_2d_limit(SIDE_RIGHT, _limit_sides.z)
+		_set_camera_2d_limit(SIDE_BOTTOM, _limit_sides.w)
+
+
+func reset_limit_all_sides() -> void:
+	_set_camera_2d_limit(SIDE_LEFT, -_limit_default)
+	_set_camera_2d_limit(SIDE_TOP, -_limit_default)
+	_set_camera_2d_limit(SIDE_RIGHT, _limit_default)
+	_set_camera_2d_limit(SIDE_BOTTOM, _limit_default)
+
+#endregion
+
+
+#region Setter & Getter Functions
+
+## Assigns the PhantomCamera2D to a new PhantomCameraHost.
+func assign_pcam_host() -> void:
+	Properties.assign_pcam_host(self)
+## Gets the current PhantomCameraHost this PhantomCamera2D is assigned to.
+func get_pcam_host_owner() -> PhantomCameraHost:
+	return Properties.pcam_host_owner
+
+
+## Assigns new Zoom value.
+func set_zoom(value: Vector2) -> void:
+	camera_zoom = value
+## Gets current Zoom value.
+func get_zoom() -> Vector2:
+	return camera_zoom
+
+
+## Assigns new Priority value.
+func set_priority(value: int) -> void:
+	Properties.set_priority(value, self)
+## Gets current Priority value.
+func get_priority() -> int:
+	return Properties.priority
+
+
+## Assigns a new PhantomCameraTween resource to the PhantomCamera2D
+func set_tween_resource(value: PhantomCameraTween) -> void:
+	Properties.tween_resource = value
+## Gets the PhantomCameraTween resource assigned to the PhantomCamera2D
+## Returns null if there's nothing assigned to it.
+func get_tween_resource() -> PhantomCameraTween:
+	return Properties.tween_resource
+
+## Assigns a new Tween Duration value. The duration value is in seconds.
+## Note: This will override and make the Tween Resource unique to this PhantomCamera2D.
+func set_tween_duration(value: float) -> void:
+	if get_tween_resource():
+		Properties.tween_resource_default.duration = value
+		Properties.tween_resource_default.transition = Properties.tween_resource.transition
+		Properties.tween_resource_default.ease = Properties.tween_resource.ease
+		set_tween_resource(null) # Clears resource from PCam instance
+	else:
+		Properties.tween_resource_default.duration = value
+## Gets the current Tween Duration value. The duration value is in seconds.
+func get_tween_duration() -> float:
+	if get_tween_resource():
+		return get_tween_resource().duration
+	else:
+		return Properties.tween_resource_default.duration
+
+## Assigns a new Tween Transition value.
+## Note: This will override and make the Tween Resource unique to this PhantomCamera2D.
+func set_tween_transition(value: Constants.TweenTransitions) -> void:
+	if get_tween_resource():
+		Properties.tween_resource_default.duration = Properties.tween_resource.duration
+		Properties.tween_resource_default.transition = value
+		Properties.tween_resource_default.ease = Properties.tween_resource.ease
+		set_tween_resource(null) # Clears resource from PCam instance
+	else:
+		Properties.tween_resource_default.transition = value
+## Gets the current Tween Transition value.
+func get_tween_transition() -> int:
+	if get_tween_resource():
+		return get_tween_resource().transition
+	else:
+		return Properties.tween_resource_default.transition
+
+## Assigns a new Tween Ease value.
+## Note: This will override and make the Tween Resource unique to this PhantomCamera2D.
+func set_tween_ease(value: Constants.TweenEases) -> void:
+	if get_tween_resource():
+		Properties.tween_resource_default.duration = Properties.tween_resource.duration
+		Properties.tween_resource_default.transition = Properties.tween_resource.ease
+		Properties.tween_resource_default.ease = value
+		set_tween_resource(null) # Clears resource from PCam instance
+	else:
+		Properties.tween_resource_default.ease = value
+## Gets the current Tween Ease value.
+func get_tween_ease() -> int:
+	if get_tween_resource():
+		return get_tween_resource().ease
+	else:
+		return Properties.tween_resource_default.ease
+
+
+## Gets current active state of the PhantomCamera2D.
+## If it returns true, it means the PhantomCamera2D is what the Camera2D is currently following.
+func is_active() -> bool:
+	return Properties.is_active
+
+
+## Enables or disables the Tween on Load.
+func set_tween_on_load(value: bool) -> void:
+	Properties.tween_onload = value
+## Gets the current Tween On Load value.
+func is_tween_on_load() -> bool:
+	return Properties.tween_onload
+
+
+## Gets the current follow mode as an enum int based on Constants.FOLLOW_MODE enum.
+## Note: Setting Follow Mode purposely not added. A separate PCam should be used instead.
+func get_follow_mode() -> int:
+	return Properties.follow_mode
+
+## Assigns a new Node2D as the Follow Target property.
+func set_follow_target_node(value: Node2D) -> void:
+	Properties.follow_target_node = value
+	Properties.should_follow = true
+## Erases the current Node2D from the Follow Target property.
+func erase_follow_target_node() -> void:
+	Properties.should_follow = false
+	Properties.follow_target_node = null
+## Gets the current Node2D target property.
+func get_follow_target_node():
+	if Properties.follow_target_node:
+		return Properties.follow_target_node
+	else:
+		printerr(\"No Follow Target Node assigned\")
+
+
+## Assigns a new Path2D to the Follow Path property.
+func set_follow_path(value: Path2D) -> void:
+	Properties.follow_path_node = value
+## Erases the current Path2D from the Follow Path property.
+func erase_follow_path() -> void:
+	Properties.follow_path_node = null
+## Gets the current Path2D from the Follow Path property.
+func get_follow_path():
+	if Properties.follow_path_node:
+		return Properties.follow_path_node
+	else:
+		printerr(\"No Follow Path assigned\")
+
+
+## Assigns a new Vector2 for the Follow Target Offset property.
+func set_follow_target_offset(value: Vector2) -> void:
+	Properties.follow_target_offset_2D = value
+## Gets the current Vector2 for the Follow Target Offset property.
+func get_follow_target_offset() -> Vector2:
+	return Properties.follow_target_offset_2D
+
+
+## Enables or disables Follow Damping.
+func set_follow_has_damping(value: bool) -> void:
+	Properties.follow_has_damping = value
+## Gets the current Follow Damping property.
+func get_follow_has_damping() -> bool:
+	return Properties.follow_has_damping
+
+## Assigns new Damping value.
+func set_follow_damping_value(value: float) -> void:
+	Properties.follow_damping_value = value
+## Gets the current Follow Damping value.
+func get_follow_damping_value() -> float:
+	return Properties.follow_damping_value
+
+## Enables or disables Pixel Perfect following.
+func set_pixel_perfect(value: bool) -> void:
+	pixel_perfect = value
+## Gets the current Pixel Perfect property.
+func get_pixel_perfect() -> bool:
+	return pixel_perfect
+
+
+## Adds a single Node2D to Follow Group array.
+func append_follow_group_node(value: Node2D) -> void:
+	if not Properties.follow_group_nodes_2D.has(value):
+		Properties.follow_group_nodes_2D.append(value)
+		Properties.should_follow = true
+		Properties.has_follow_group = true
+	else:
+		printerr(value, \" is already part of Follow Group\")
+## Adds an Array of type Node2D to Follow Group array.
+func append_follow_group_node_array(value: Array[Node2D]) -> void:
+	for val in value:
+		if not Properties.follow_group_nodes_2D.has(val):
+			Properties.follow_group_nodes_2D.append(val)
+			Properties.should_follow = true
+			Properties.has_follow_group = true
+		else:
+			printerr(val, \" is already part of Follow Group\")
+## Removes Node2D from Follow Group array.
+func erase_follow_group_node(value: Node2D) -> void:
+	Properties.follow_group_nodes_2D.erase(value)
+	if Properties.follow_group_nodes_2D.size() < 1:
+		Properties.should_follow = false
+		Properties.has_follow_group = false
+## Gets all Node2D from Follow Group array.
+func get_follow_group_nodes() -> Array[Node2D]:
+	return Properties.follow_group_nodes_2D
+
+
+## Enables or disables Auto zoom when using Group Follow.
+func set_auto_zoom(value: bool) -> void:
+	follow_group_zoom_auto = value
+## Gets Auto Zoom state.
+func get_auto_zoom() -> bool:
+	return follow_group_zoom_auto
+
+## Assigns new Min Auto Zoom value.
+func set_min_auto_zoom(value: float) -> void:
+	follow_group_zoom_min = value
+## Gets Min Auto Zoom value.
+func get_min_auto_zoom() -> float:
+	return follow_group_zoom_min
+
+## Assigns new Max Auto Zoom value.
+func set_max_auto_zoom(value: float) -> void:
+	follow_group_zoom_max = value
+## Gets Max Auto Zoom value.
+func get_max_auto_zoom() -> float:
+	return follow_group_zoom_max
+
+## Assigns new Zoom Auto Margin value.
+func set_zoom_auto_margin(value: Vector4) -> void:
+	follow_group_zoom_margin = value
+## Gets Zoom Auto Margin value.
+func get_zoom_auto_margin() -> Vector4:
+	return follow_group_zoom_margin
+
+## Assign a the Camera2D Limit Side value.
+func set_limit(side: int, value: int) -> void:
+	if not limit_node_path.is_empty():
+		printerr(\"Unable to set Limit Side due to Limit Node, \", get_node(limit_node_path).name,  \", being assigned\")
+	else:
+		match side:
+			SIDE_LEFT: 		limit_left = value
+			SIDE_TOP: 		limit_top = value
+			SIDE_RIGHT: 	limit_right = value
+			SIDE_BOTTOM: 	limit_bottom = value
+			_:				printerr(\"Not a valid Side parameter.\")
+		update_limit_all_sides()
+## Gets the Camera2D Limit value.
+func get_limit(side: int) -> int:
+	match side:
+		SIDE_LEFT: 		return limit_left
+		SIDE_TOP: 		return limit_top
+		SIDE_RIGHT: 	return limit_right
+		SIDE_BOTTOM: 	return limit_bottom
+		_:
+						printerr(\"Not a valid Side parameter.\")
+						return -1
+
+# Set Tile Map Limit Node.
+func set_limit_node(value: Node2D) -> void:
+	_set_limit_node(value.get_path())
+## Get Tile Map Limit Node
+func get_limit_node() -> Node2D:
+	if not get_node_or_null(limit_node_path):
+		printerr(\"No Tile Map Limit Node set\")
+		return null
+	return get_node(limit_node_path)
+
+## Set Tile Map Limit Margin.
+func set_limit_margin(value: Vector4) -> void:
+	limit_margin = value
+## Get Tile Map Limit Margin.
+func get_limit_margin() -> Vector4:
+	return limit_margin
+
+## Enables or disables the Limit Smoothing beaviour.
+func set_limit_smoothing_enabled(value: bool) -> void:
+	limit_smoothed = value
+	if is_active() and _has_valid_pcam_owner():
+		get_pcam_host_owner().camera_2D.reset_smoothing()
+## Returns the Limit Smoothing beaviour.
+func get_limit_smoothing_enabled() -> bool:
+	return limit_smoothed
+
+## Gets Interactive Update Mode property.
+func get_inactive_update_mode() -> String:
+	return Constants.InactiveUpdateMode.keys()[Properties.inactive_update_mode].capitalize()
+
+#endregion
+"
+
+[sub_resource type="GDScript" id="GDScript_emdt6"]
+script/source = "class_name PhantomCameraTween
+extends Resource
+
+const Constants = preload(\"res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_constants.gd\")
+
+## The time it takes to tween to this property
+@export var duration: float = 1
+
+## The transition bezier type for the tween
+@export var transition: Constants.TweenTransitions = Constants.TweenTransitions.LINEAR
+
+## The ease type for the tween
+@export var ease: Constants.TweenEases = Constants.TweenEases.EASE_IN_OUT
+"
+
+[sub_resource type="Resource" id="Resource_d6u2e"]
+script = SubResource("GDScript_emdt6")
+duration = 2.0
+transition = 7
+ease = 1
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p3idq"]
+radius = 89.1489
+
+[sub_resource type="Resource" id="Resource_jmr3k"]
+script = SubResource("GDScript_emdt6")
+duration = 2.0
+transition = 7
+ease = 1
+
+[node name="Kairos" type="CharacterBody2D" node_paths=PackedStringArray("jump_particles", "health_component", "animplayer")]
+scale = Vector2(16, 16)
+collision_layer = 2
+script = ExtResource("1_sk5bm")
+speed = 1700
+jump_force = -2600
+jump_particles = NodePath("CPUParticles2D")
+health_component = NodePath("HealthComponent")
+animplayer = NodePath("AnimationTree/AnimationPlayer")
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CapsuleShape2D_ro3xv")
+one_way_collision_margin = 5.0
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_4geli")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_j2n1x")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4wtr7")
+}
+tree_root = SubResource("AnimationNodeStateMachine_3rnav")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_4wtr7")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-0.733, -8.067)
+scale = Vector2(0.0397608, 0.0397607)
+texture = ExtResource("4_4kruk")
+
+[node name="Movement" type="Node2D" parent="." node_paths=PackedStringArray("raycast")]
+script = ExtResource("50_puyo3")
+raycast = NodePath("RayCast2D")
+
+[node name="RayCast2D" type="RayCast2D" parent="Movement"]
+position = Vector2(0, -7.945)
+target_position = Vector2(15, 0)
+
+[node name="Jump" type="Node2D" parent="."]
+script = ExtResource("51_wrkua")
+
+[node name="dashTimer" type="Timer" parent="."]
+
+[node name="canDashTimer" type="Timer" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2(0, -500)
+zoom = Vector2(0.75, 0.75)
+position_smoothing_speed = 2.0
+drag_left_margin = 0.15
+drag_top_margin = 0.3
+drag_right_margin = 0.15
+drag_bottom_margin = 0.15
+editor_draw_limits = true
+editor_draw_drag_margin = true
+script = SubResource("GDScript_cmvi7")
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = SubResource("GDScript_7oalu")
+
+[node name="HealthComponent" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("53_d2ay0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HealthComponent"]
+position = Vector2(0.125, -5.6875)
+shape = SubResource("CircleShape2D_46lp1")
+
+[node name="ActionableFinder" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActionableFinder"]
+position = Vector2(0.0625, -7.75)
+shape = SubResource("CircleShape2D_5vvgt")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-1.87694, 2.03855)
+emitting = false
+lifetime = 0.7
+one_shot = true
+explosiveness = 1.0
+direction = Vector2(0, 0)
+gravity = Vector2(0, 0)
+initial_velocity_max = 20.0
+scale_amount_min = 30.0
+scale_amount_max = 30.0
+
+[node name="AttackDirector" type="Node2D" parent="." node_paths=PackedStringArray("hitbox")]
+position = Vector2(0, -7.88)
+script = ExtResource("51_pnv81")
+hitbox = NodePath("HitboxComponent")
+
+[node name="HitboxComponent" type="Area2D" parent="AttackDirector"]
+visible = false
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("52_k0bpp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackDirector/HitboxComponent"]
+position = Vector2(-0.0625, 0.8175)
+shape = SubResource("CircleShape2D_3khjw")
+disabled = true
+
+[node name="Cameras" type="Node2D" parent="."]
+
+[node name="PhantomCamera2D" type="Node2D" parent="Cameras"]
+script = SubResource("GDScript_850jv")
+priority_override = false
+priority = 5
+zoom = Vector2(0.75, 0.75)
+follow_mode = 2
+follow_target = NodePath("../..")
+follow_parameters/target_offset = Vector2(0, 0)
+follow_parameters/damping = true
+follow_parameters/damping_value = 1.0
+frame_preview = true
+pixel_perfect = false
+limit/draw_limits = false
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = SubResource("Resource_d6u2e")
+tween_on_load = true
+inactive_update_mode = 0
+
+[node name="CameraEvent2D" type="Area2D" parent="Cameras" node_paths=PackedStringArray("phantom_camera")]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("32_ijgk1")
+phantom_camera = NodePath("CombatCamera")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cameras/CameraEvent2D"]
+position = Vector2(0.9375, -7.5625)
+shape = SubResource("CircleShape2D_p3idq")
+
+[node name="CombatCamera" type="Node2D" parent="Cameras/CameraEvent2D"]
+script = SubResource("GDScript_850jv")
+priority_override = false
+priority = 0
+zoom = Vector2(0.86, 0.86)
+follow_mode = 3
+follow_group = Array[NodePath]([NodePath("../../..")])
+follow_parameters/auto_zoom = true
+follow_parameters/min_zoom = 0.8
+follow_parameters/max_zoom = 0.9
+follow_parameters/zoom_margin = Vector4(0, 0, 0, 0)
+follow_parameters/target_offset = Vector2(0, 0)
+follow_parameters/damping = true
+follow_parameters/damping_value = 1.0
+frame_preview = true
+pixel_perfect = false
+limit/draw_limits = false
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 3490
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = SubResource("Resource_jmr3k")
+tween_on_load = true
+inactive_update_mode = 0
+
+[connection signal="timeout" from="dashTimer" to="Movement" method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="canDashTimer" to="Movement" method="_on_can_dash_timer_timeout"]

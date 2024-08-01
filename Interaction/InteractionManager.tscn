@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkv3bfen07tl"]
+
+[ext_resource type="Script" path="res://Scripts/Singletons/InteractionManager.gd" id="1_8n2uh"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_62xhb"]
+font_size = 111
+
+[node name="InteractionManager" type="Node2D"]
+script = ExtResource("1_8n2uh")
+
+[node name="Label" type="Label" parent="."]
+z_index = 20
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -434.5
+offset_right = 434.5
+offset_bottom = 152.0
+grow_horizontal = 2
+text = "[Z] TO INTERACT"
+label_settings = SubResource("LabelSettings_62xhb")
+horizontal_alignment = 1
+vertical_alignment = 1
