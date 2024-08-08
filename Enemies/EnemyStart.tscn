@@ -1,17 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://dit78to87yvc6"]
+[gd_scene load_steps=8 format=3 uid="uid://dit78to87yvc6"]
 
 [ext_resource type="Texture2D" uid="uid://yop712cihx6k" path="res://Art/Sprites/Enemies/EnemmyBase/idle_animation.01.png" id="1_f8ii7"]
 [ext_resource type="Script" path="res://Enemies/EnemyStart.gd" id="1_ox6p3"]
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/HealthComponent.gd" id="3_dijxk"]
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/HitboxComponent.gd" id="4_k7jhs"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="5_dojmc"]
-[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="5_tgphx"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="6_uaml6"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="7_vhnhr"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/condition.gd" id="8_mvd3y"]
-[ext_resource type="Script" path="res://Enemies/isDead.gd" id="8_o7x5t"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/action.gd" id="9_1k0if"]
-[ext_resource type="Script" path="res://Data/blackboard_keys.gd" id="10_c7nx4"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_o1hy2"]
 radius = 37.0
@@ -46,39 +38,3 @@ script = ExtResource("4_k7jhs")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CapsuleShape2D_dno12")
-
-[node name="Blackboard" type="Node" parent="."]
-script = ExtResource("5_tgphx")
-
-[node name="EnemyBeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
-script = ExtResource("5_dojmc")
-blackboard = NodePath("../Blackboard")
-actor = NodePath("..")
-
-[node name="SelectorComposite" type="Node" parent="EnemyBeehaveTree"]
-script = ExtResource("6_uaml6")
-
-[node name="DeadSequence" type="Node" parent="EnemyBeehaveTree/SelectorComposite"]
-script = ExtResource("7_vhnhr")
-
-[node name="isDead" type="Node" parent="EnemyBeehaveTree/SelectorComposite/DeadSequence"]
-script = ExtResource("8_o7x5t")
-keys = ExtResource("10_c7nx4")
-
-[node name="playDead" type="Node" parent="EnemyBeehaveTree/SelectorComposite/DeadSequence"]
-script = ExtResource("9_1k0if")
-
-[node name="HitSequence" type="Node" parent="EnemyBeehaveTree/SelectorComposite"]
-script = ExtResource("7_vhnhr")
-
-[node name="isHit" type="Node" parent="EnemyBeehaveTree/SelectorComposite/HitSequence"]
-script = ExtResource("8_mvd3y")
-
-[node name="playHit" type="Node" parent="EnemyBeehaveTree/SelectorComposite/HitSequence"]
-script = ExtResource("9_1k0if")
-
-[node name="WanderSequence" type="Node" parent="EnemyBeehaveTree/SelectorComposite"]
-script = ExtResource("7_vhnhr")
-
-[node name="Wander" type="Node" parent="EnemyBeehaveTree/SelectorComposite/WanderSequence"]
-script = ExtResource("9_1k0if")
