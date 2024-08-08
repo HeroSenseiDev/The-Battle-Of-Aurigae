@@ -8,7 +8,7 @@ func enter():
 	player.animplayer.play("Attack")
 	attack_sfx.play()
 	#cloves.attack()
-func process(delta):
+func process(_delta):
 	move(player.input_axis)
 	
 func move(direction):

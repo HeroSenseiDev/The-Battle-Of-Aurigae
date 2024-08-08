@@ -1,5 +1,5 @@
 extends PlayerState
-@export var knockbackforce = 5
+@export var knockbackforce = 15
 var hit_position
 @export var hurtsfx : AudioStreamPlayer
 @onready var damage = $"../../SFX/Damage"
@@ -9,11 +9,11 @@ func enter():
 	player.animplayer.play("Hurted")
 	HitStopManager.hit_stop_medium()
 	$"../../AttackDirector/HitboxComponent/Cloves".visible = false
-func process(delta):
+func process(_delta):
 	knockback()
 func knockback():
 	player.velocity = (player.health_component.knockback_vector * knockbackforce)
-	player.velocity.y = player.jump_force * 0.5
+	player.velocity.y = player.jump_force * 0.2
 	player.move_and_slide()
 	
 

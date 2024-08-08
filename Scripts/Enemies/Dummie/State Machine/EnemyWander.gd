@@ -5,6 +5,7 @@ extends EnemyState
 
 
 func enter():
+	GameManager.desactivate_shake()
 	enemy.speed = enemy.normal_speed
 	enemy.direction = enemy.choose([Vector2.RIGHT, Vector2.LEFT])
 	enemy.animation_player.play("Run")
@@ -28,6 +29,7 @@ func move(delta):
 	elif enemy.direction == Vector2.LEFT:
 		enemy.sprite_2d.flip_h = false
 	elif enemy.is_chase == true:
+		enemy.animation_player.play("FastRun")
 		state_machine.change_to("EnemyChase")
 	enemy.is_roaming = true
 
@@ -40,3 +42,10 @@ func _on_search_timer_timeout():
 func choose(array):
 	array.shuffle()
 	return array.front()
+
+
+func _on_enemy_area_body_entered(body):
+	if body.name == "Kairos":
+		enemy.is_chase = true
+		enemy.animation_player.play("FastRun")
+		state_machine.change_to("EnemyChase")

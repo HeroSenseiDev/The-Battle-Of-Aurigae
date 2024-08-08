@@ -2,7 +2,7 @@ extends PlayerState
 
 @export var raycast : RayCast2D
 
-func process(delta):
+func process(_delta):
 	if raycast.is_colliding():
 		if raycast.get_collider().name == "TileMap":
 			state_machine.change_to("PlayerWallState")

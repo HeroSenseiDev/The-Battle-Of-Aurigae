@@ -4,7 +4,7 @@ extends Node2D
 @export var orbit_radius = 150
 var player : Player
 
-func _process(delta):
+func _process(_delta):
 	gamepad_joystick()
 func gamepad_joystick():
 	var direction : Vector2

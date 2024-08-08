@@ -1,6 +1,6 @@
 extends PlayerState
 
-func process(delta):
+func process(_delta):
 	move(player.input_axis)
 	dash()
 	player.dash_counter = player.dash_counter_start
@@ -20,7 +20,7 @@ func move(direction):
 func input(event : InputEvent):
 	if event.is_action_pressed("jump"):
 		player.save_last_jump_position()
-		player.jump_dust_instantiate(-20, -50)
+		player.jump_dust_instantiate()
 		player.velocity.y = player.jump_force
 		state_machine.change_to("PlayerAirState")
 	elif event.is_action_pressed("attack"):

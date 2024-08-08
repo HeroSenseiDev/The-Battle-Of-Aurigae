@@ -2,6 +2,7 @@ extends EnemyState
 
 
 func enter():
+	GameManager.desactivate_shake()
 	enemy.animation_player.play("Searching")
 	enemy.velocity.x = 0
 

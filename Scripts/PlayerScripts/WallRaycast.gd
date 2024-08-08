@@ -5,7 +5,7 @@ var ray_flip = false
 func _ready():
 	self.target_position.x = raycast_dimension
 
-func _process(delta):
+func _process(_delta):
 	if ray_flip:
 		self.target_position.x = -raycast_dimension
 	else:

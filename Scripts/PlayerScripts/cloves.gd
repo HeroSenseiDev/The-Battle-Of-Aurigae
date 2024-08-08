@@ -11,7 +11,7 @@ func attack():
 	animation_player.play("Attack")
 	sprite.visible = true
 
-func _process(delta):
+func _process(_delta):
 	if player.animsprite.flip_h:
 		sprite.flip_h = true
 	else:

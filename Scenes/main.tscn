@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bpw2pqulyy8oy"]
+[gd_scene load_steps=18 format=3 uid="uid://bpw2pqulyy8oy"]
 
 [ext_resource type="PackedScene" uid="uid://clc340xqlbn3a" path="res://Scenes/Level1.tscn" id="1_pb2i6"]
 [ext_resource type="PackedScene" uid="uid://0v5cp8nvr4u4" path="res://Scenes/Kairos.tscn" id="2_4upec"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://caaqo6lty0qv2" path="res://Scenes/MasterNPC.tscn" id="8_hu4fn"]
 [ext_resource type="PackedScene" uid="uid://brn7gwagsh5c7" path="res://Scenes/Player/HealthGUI.tscn" id="9_4y2cg"]
 [ext_resource type="PackedScene" uid="uid://d1a3h030mig8g" path="res://Enemies/EnemyBase.tscn" id="10_xbgdx"]
+[ext_resource type="Script" path="res://Scripts/Pathfinder.gd" id="11_5em41"]
+[ext_resource type="PackedScene" uid="uid://dit78to87yvc6" path="res://Enemies/EnemyStart.tscn" id="12_k5a8b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2sucn"]
 size = Vector2(1612.34, 1896.67)
@@ -140,4 +142,13 @@ libraries = {
 [node name="HealthGUI" parent="GUI" instance=ExtResource("9_4y2cg")]
 
 [node name="DummieEnemy" parent="." instance=ExtResource("10_xbgdx")]
-position = Vector2(1312, 1017)
+position = Vector2(1932, 1030)
+
+[node name="EnemyBase" parent="." instance=ExtResource("10_xbgdx")]
+position = Vector2(3099, 908)
+
+[node name="Pathfinder" type="Node2D" parent="."]
+script = ExtResource("11_5em41")
+
+[node name="EnemyStart" parent="." instance=ExtResource("12_k5a8b")]
+position = Vector2(1000, 1029)

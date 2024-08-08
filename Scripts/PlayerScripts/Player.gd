@@ -53,7 +53,6 @@ var max_health = 2
 var health = 0
 
 func _ready():
-
 	can_attack = true
 	if can_attack == false:
 		can_attack = true
@@ -65,7 +64,7 @@ func _ready():
 	dash_counter_start = dash_counter
 	speed = normal_speed
 
-func _process(delta):
+func _process(_delta):
 	flip_sprite()
 	respawn_decitiom()
 	if Input.is_action_just_released("jump") and velocity.y < 0:
@@ -93,9 +92,8 @@ func dead():
 	respawn()
 	
 	
-func jump_dust_instantiate(offset_y, offset_x):
-	offset_x = Vector2.AXIS_X
-	offset_y = Vector2.AXIS_Y
+func jump_dust_instantiate():
+
 	var instance = jump_particles.instantiate()
 	print("instancie particula")
 	add_sibling(instance)
@@ -129,7 +127,7 @@ func respawn_decitiom():
 		health_component.take_damage(1, self)
 		print("Tengo que hacer respawn")
 		fanimation_player.play("fade")
-		await get_tree().create_timer(0.2)
+		get_tree().create_timer(0.2)
 		respawn()
 		
 func respawn():

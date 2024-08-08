@@ -6,13 +6,14 @@ class_name EnemyBase
 @export var knockback_jump_force : float
 @onready var ray_cast_left = $RayCastLEFT
 @onready var ray_cast_right = $RayCastRIGHT
+@onready var enemy_area = $EnemyArea
 
 
 var speed = 30000
 var normal_speed = 30000
-var knockback_force = 2
+var knockback_force = 4
 
-var is_chase : bool = true
+var is_chase : bool = false
 var is_dead : bool = false
 var is_hurted : bool = false
 var direction : Vector2
@@ -22,9 +23,10 @@ var is_roaming : bool = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+@onready var state_machine = $StateMachine
 
 @onready var animation_player = $AnimationPlayer
-@export var state_machine : StateMachine
+
 @onready var health_component :  HealthComponent = $HealthComponent
 @onready var direction_timer = $Timers/DirectionTimer
 @export var idle_in_edges : bool
@@ -67,3 +69,12 @@ func _on_direction_timer_timeout():
 func choose(array):
 	array.shuffle()
 	return array.front()
+
+
+func tween():
+	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+	tween.tween_property(self, "modulate", Color.RED, 0.4)
+	tween.tween_property(self, "modulate", Color.WHITE, 0.4)
+
+
+

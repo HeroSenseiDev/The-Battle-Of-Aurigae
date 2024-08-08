@@ -6,7 +6,7 @@ extends Camera2D
 func _ready():
 	GameManager.phantom_camera = phantom_camera
 
-func _process(delta):
+func _process(_delta):
 	if GameManager.shake_is_desactivated == false:
 		GameManager.shake()
 	

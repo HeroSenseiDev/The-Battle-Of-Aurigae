@@ -39,13 +39,13 @@ func input(event : InputEvent):
 	if event.is_action_pressed("jump"):
 		if air_jump:
 			player.velocity.y = player.jump_force * 0.9
-			player.jump_dust_instantiate(0, 0)
+			player.jump_dust_instantiate()
 			air_jump = false
 	elif event.is_action_pressed("attack"):
 		if player.can_attack == true:
 			state_machine.change_to("PlayerAttackState")
 	elif player.dash_counter > 0 and event.is_action_pressed("dash"):
-			player.jump_dust_instantiate(0, 0)
+			player.jump_dust_instantiate()
 			player.dash_counter -= 1
 			print(player.dash_counter)
 			print(player.candash)

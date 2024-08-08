@@ -5,7 +5,7 @@ extends PlayerState
 func enter():
 	player.animplayer.play("Slide")
 
-func physics_process(delta):
+func physics_process(_delta):
 	
 	if !player.is_on_floor():
 		player.velocity.y = player.velocity.y * 0.8
@@ -34,7 +34,7 @@ func wall_climb():
 		player.move_and_slide()
 		state_machine.change_to("PlayerAirState")
 		
-func wall_jump(delta):
+func wall_jump(_delta):
 	var wall_normal = player.get_wall_normal()
 	if Input.is_action_just_pressed("left_move") and wall_normal == Vector2.LEFT:
 		player.velocity.x = wall_normal.x * player.speed * 3
