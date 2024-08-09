@@ -142,11 +142,11 @@ libraries = {
 [node name="HealthGUI" parent="GUI" instance=ExtResource("9_4y2cg")]
 
 [node name="DummieEnemy" parent="." instance=ExtResource("10_xbgdx")]
-visible = false
 position = Vector2(1932, 1030)
 
 [node name="EnemyBase" parent="." instance=ExtResource("10_xbgdx")]
 position = Vector2(3099, 908)
 
 [node name="Pathfinder" type="Node2D" parent="."]
+visible = false
 script = ExtResource("11_5em41")

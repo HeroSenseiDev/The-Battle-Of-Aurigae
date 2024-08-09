@@ -25,14 +25,25 @@ func _enter_state():
 	state.state_machine = self
 	state.enter()
 	
+#func _exit_state():
+	#state.exit()
+	
 #Cambiar de estado
 func change_to(new_state):
-	history.append(state.name)
+	#if new_state == state.name: return
+	#if new_state == null: return
+	
 	state = get_node(new_state)
+	
+	#if state != null and state.has_method("exit"):
+		#state.exit()
+	
+	history.append(state.name)
 	_enter_state()
+	
 	if PRINT_HISTORY:
 		print(history)
-
+		
 func _process(delta: float) -> void:
 	if state.has_method("process"):
 		state.process(delta)

@@ -13,3 +13,6 @@ var enemy : EnemyBase
 
 func enter():
 	pass
+	
+func exit():
+	pass

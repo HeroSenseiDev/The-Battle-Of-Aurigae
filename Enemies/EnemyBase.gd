@@ -4,9 +4,9 @@ class_name EnemyBase
 @onready var knockback_duration = $"Timers/Knockback Duration"
 @export var knockback_jump : bool
 @export var knockback_jump_force : float
-@onready var ray_cast_left = $RayCastLEFT
-@onready var ray_cast_right = $RayCastRIGHT
-@onready var enemy_area = $EnemyArea
+@onready var ray_cast_left = $RayCasts/RayCastLEFT
+@onready var ray_cast_right = $RayCasts/RayCastRIGHT
+@onready var enemy_area = $Areas/EnemyArea
 
 
 var speed = 30000
@@ -18,7 +18,7 @@ var is_dead : bool = false
 var is_hurted : bool = false
 var direction : Vector2
 var is_roaming : bool = true
-@onready var sprite_2d = $Sprite2D
+@onready var sprite_2d : Sprite2D = $Sprite2D
 @export var hurted_SFX : AudioStreamPlayer
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -27,7 +27,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animation_player = $AnimationPlayer
 
-@onready var health_component :  HealthComponent = $HealthComponent
+@onready var health_component :  HealthComponent = $Areas/HealthComponent
 @onready var direction_timer = $Timers/DirectionTimer
 @export var idle_in_edges : bool
 var player : Player

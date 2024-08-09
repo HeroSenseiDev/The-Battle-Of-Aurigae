@@ -1,7 +1,6 @@
 extends EnemyState
 
 func enter():
-	GameManager.desactivate_shake()
 	enemy.animation_player.play("Attack")
 	enemy.velocity.x = 0
 	

@@ -1,7 +1,6 @@
 extends EnemyState
 
 func enter():
-	GameManager.desactivate_shake()
 	enemy.animation_player.play("FastRun")
 	enemy.speed = enemy.normal_speed * 2
 	enemy.is_roaming = false
@@ -12,7 +11,7 @@ func process(delta):
 	var dir_to_player = enemy.position.direction_to(enemy.player.global_position)
 	enemy.velocity.x = dir_to_player.x * enemy.speed * delta
 
-func flip_sprite():
+func flip_sprite() -> void:
 	if enemy.velocity.x < 0:
 		enemy.sprite_2d.flip_h = false
 	elif enemy.velocity.x > 0:

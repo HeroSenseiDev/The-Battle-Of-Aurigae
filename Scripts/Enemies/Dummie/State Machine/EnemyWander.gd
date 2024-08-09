@@ -5,7 +5,6 @@ extends EnemyState
 
 
 func enter():
-	GameManager.desactivate_shake()
 	enemy.speed = enemy.normal_speed
 	enemy.direction = enemy.choose([Vector2.RIGHT, Vector2.LEFT])
 	enemy.animation_player.play("Run")

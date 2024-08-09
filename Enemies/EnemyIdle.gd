@@ -2,7 +2,6 @@ extends EnemyState
 @onready var idle_timer = $"../../Timers/Idle Timer"
 
 func enter():
-	GameManager.desactivate_shake()
 	idle_timer.start()
 	enemy.animation_player.play("Idle")
 	
