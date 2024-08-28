@@ -13,5 +13,3 @@ func _ready():
 func hit(area):
 	if area is HealthComponent:
 		area.take_damage(damage, atacante)
-
-
