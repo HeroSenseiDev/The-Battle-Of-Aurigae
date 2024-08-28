@@ -5,7 +5,7 @@ var player : Player
 var normal_speed = 1800
 
 @onready var phantom_camera : PhantomCamera2D
-@export var magnitude : float = 110
+@export var magnitude : float = 10
 
 var is_shaking : bool = false
 var can_shake : bool = true
@@ -29,4 +29,3 @@ func desactivate_shake():
 	is_shaking = false
 	shake_is_desactivated = true
 	phantom_camera.global_position = phantom_camera.global_position
-

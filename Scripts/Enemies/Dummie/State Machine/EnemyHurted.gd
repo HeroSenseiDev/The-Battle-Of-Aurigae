@@ -17,17 +17,13 @@ func knockback() -> void:
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Hurted":
-		GameManager.desactivate_shake()
-		enemy.sprite_2d.material.set_shader_parameter("Enabled", false)
-		enemy.is_hurted = false
 		state_machine.change_to("EnemyWander")
-		hurted_timer.stop()
 
-func exit():
+func state_exit():
+	print("saliendo de hurted")
 	GameManager.desactivate_shake()
 	enemy.sprite_2d.material.set_shader_parameter("Enabled", false)
 	enemy.is_hurted = false
-	state_machine.change_to("EnemyWander")
 	hurted_timer.stop()
 
 func _on_timer_timeout():

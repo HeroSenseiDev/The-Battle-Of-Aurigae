@@ -21,7 +21,6 @@ func _enter_state():
 		print(owner.name, ": Entering state: ", state.name)
 	
 	state.node = node_to_control
-	
 	state.state_machine = self
 	state.enter()
 	
@@ -30,13 +29,13 @@ func _enter_state():
 	
 #Cambiar de estado
 func change_to(new_state):
-	#if new_state == state.name: return
-	#if new_state == null: return
+	if(state.name == new_state):
+		return
 	
+	if state.has_method("state_exit"):
+		state.state_exit()
+		
 	state = get_node(new_state)
-	
-	#if state != null and state.has_method("exit"):
-		#state.exit()
 	
 	history.append(state.name)
 	_enter_state()

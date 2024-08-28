@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bhq5xalrmjrgm"]
 
-[ext_resource type="Texture2D" uid="uid://draw16127vtvh" path="res://Proyecto nuevo (25).png" id="1_f507g"]
-[ext_resource type="Script" path="res://Scenes/JumpParticles.gd" id="2_poxi6"]
+[ext_resource type="Texture2D" uid="uid://draw16127vtvh" path="res://TestsTrash/Proyecto nuevo (25).png" id="1_f507g"]
+[ext_resource type="Script" path="res://Scripts/JumpParticles.gd" id="2_poxi6"]
 
 [sub_resource type="Curve" id="Curve_rk1ix"]
 min_value = -2.23517e-10

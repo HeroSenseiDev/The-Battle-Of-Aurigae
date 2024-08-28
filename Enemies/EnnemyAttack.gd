@@ -4,10 +4,13 @@ func enter():
 	enemy.animation_player.play("Attack")
 	enemy.velocity.x = 0
 	
-func process(delta):
-	if enemy.is_hurted == true:
-		state_machine.change_to("EnemyHurted")
-	enemy.velocity.x = 0
+func state_exit() -> void:
+	print("saliendo de attack")
+	
+#func process(_delta):
+	#if enemy.is_hurted == true:
+		#state_machine.change_to("EnemyHurted")
+	#enemy.velocity.x = 0
 
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Attack":

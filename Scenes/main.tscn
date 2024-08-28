@@ -1,25 +1,28 @@
-[gd_scene load_steps=17 format=3 uid="uid://bpw2pqulyy8oy"]
+[gd_scene load_steps=20 format=3 uid="uid://bpw2pqulyy8oy"]
 
 [ext_resource type="PackedScene" uid="uid://clc340xqlbn3a" path="res://Scenes/Level1.tscn" id="1_pb2i6"]
 [ext_resource type="PackedScene" uid="uid://0v5cp8nvr4u4" path="res://Scenes/Kairos.tscn" id="2_4upec"]
 [ext_resource type="Script" path="res://Scripts/CameraEventArea2D.gd" id="3_2dyfo"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="3_40nek"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="4_f7pj5"]
 [ext_resource type="PackedScene" uid="uid://fjnv0bkfqmq2" path="res://Scenes/statue.tscn" id="4_m5d8s"]
-[ext_resource type="PackedScene" uid="uid://cyeb8q8tmc7tn" path="res://Scenes/Robot.tscn" id="6_ypbtk"]
-[ext_resource type="PackedScene" uid="uid://caaqo6lty0qv2" path="res://Scenes/MasterNPC.tscn" id="8_hu4fn"]
+[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="7_tu6og"]
+[ext_resource type="Texture2D" uid="uid://bnieqg4jbg8uq" path="res://TestsTrash/Proyecto nuevo (27) (1).png" id="8_3acdg"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_0xq85"]
 [ext_resource type="PackedScene" uid="uid://brn7gwagsh5c7" path="res://Scenes/Player/HealthGUI.tscn" id="9_4y2cg"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_34l78"]
+[ext_resource type="Script" path="res://Scripts/DayNight.gd" id="10_38hm2"]
 [ext_resource type="PackedScene" uid="uid://d1a3h030mig8g" path="res://Enemies/EnemyBase.tscn" id="10_xbgdx"]
-[ext_resource type="Script" path="res://Scripts/Pathfinder.gd" id="11_5em41"]
+[ext_resource type="Texture2D" uid="uid://1iw8lc5d06n0" path="res://Resources/daynightcycle-gradient-texture.tres" id="11_8nxkj"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_m1np8"]
+[ext_resource type="Texture2D" uid="uid://88blcpgu0ea3" path="res://Resources/fondo.jpg" id="13_a3f12"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2sucn"]
 size = Vector2(1612.34, 1896.67)
 
-[sub_resource type="Resource" id="Resource_yxsve"]
-script = ExtResource("4_f7pj5")
-duration = 2.0
-transition = 7
-ease = 1
+[sub_resource type="Resource" id="Resource_h2eno"]
+script = ExtResource("10_34l78")
+duration = 1.0
+transition = 0
+ease = 2
 
 [sub_resource type="Animation" id="Animation_0vaee"]
 length = 0.001
@@ -58,71 +61,81 @@ _data = {
 }
 
 [node name="Main" type="Node2D"]
+position = Vector2(1, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(5277, -284)
+scale = Vector2(7.78646, 5.45926)
+texture = ExtResource("13_a3f12")
 
 [node name="Statue" parent="." instance=ExtResource("4_m5d8s")]
 position = Vector2(6085, -1103)
 scale = Vector2(1.2, 1.2)
 
-[node name="Area2D" type="Area2D" parent="Statue" node_paths=PackedStringArray("phantom_camera")]
+[node name="Area2D" type="Area2D" parent="Statue"]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_2dyfo")
-phantom_camera = NodePath("PhantomCamera2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Statue/Area2D"]
 position = Vector2(-21.1643, -15.6667)
 shape = SubResource("RectangleShape2D_2sucn")
 
-[node name="PhantomCamera2D" type="Node2D" parent="Statue/Area2D"]
-script = ExtResource("3_40nek")
-priority_override = false
-priority = 0
-zoom = Vector2(0.8, 0.8)
-follow_mode = 3
-follow_group = Array[NodePath]([NodePath("../..")])
-follow_parameters/auto_zoom = false
-follow_parameters/target_offset = Vector2(0, 0)
-follow_parameters/damping = false
-frame_preview = true
-limit/draw_limits = false
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-limit/smoothed = false
-limit/tile_map_limit_target = NodePath("")
-tween_parameters = SubResource("Resource_yxsve")
-tween_on_load = true
-inactive_update_mode = 0
-
 [node name="TileMap" parent="." instance=ExtResource("1_pb2i6")]
-
-[node name="MasterNPC" parent="." instance=ExtResource("8_hu4fn")]
-position = Vector2(6702, 24)
-scale = Vector2(0.7, 0.7)
-
-[node name="Kairos" parent="." instance=ExtResource("2_4upec")]
-position = Vector2(745, 913)
-scale = Vector2(12, 12)
-speed = 950
-jump_force = -3900
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1924, 1085)
-
-[node name="Enemy" parent="." instance=ExtResource("6_ypbtk")]
-visible = false
-position = Vector2(4433, -329)
-scale = Vector2(1, 1)
 
 [node name="Settings" type="Node2D" parent="."]
 
-[node name="CanvasModulate" type="CanvasModulate" parent="Settings"]
-color = Color(0, 0, 0, 1)
+[node name="DayNight" type="CanvasModulate" parent="Settings"]
+visible = false
+script = ExtResource("10_38hm2")
+gradient = ExtResource("11_8nxkj")
+
+[node name="DayNight2" type="CanvasModulate" parent="Settings"]
+color = Color(1, 0.462745, 0.517647, 1)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Settings"]
-color = Color(0.74902, 0.65098, 0.792157, 1)
-energy = 0.79
+color = Color(0.686275, 0.572549, 0.733333, 1)
+energy = 0.33
+
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("phantom_camera")]
+physics_interpolation_mode = 1
+position = Vector2(1521, 93)
+zoom = Vector2(0.8, 0.8)
+script = ExtResource("7_tu6og")
+phantom_camera = NodePath("../Player/PhantomCamera2D")
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+script = ExtResource("11_m1np8")
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2(1521, 593)
+
+[node name="Kairos" parent="Player" instance=ExtResource("2_4upec")]
+speed = 950
+jump_force = -3900
+
+[node name="PointLight2D" type="PointLight2D" parent="Player/Kairos"]
+visible = false
+position = Vector2(0, -6.41667)
+color = Color(1, 0.843137, 0.235294, 1)
+texture = ExtResource("8_3acdg")
+texture_scale = 0.5
+
+[node name="PhantomCamera2D" type="Node2D" parent="Player" node_paths=PackedStringArray("follow_target")]
+position = Vector2(0, -500)
+script = ExtResource("9_0xq85")
+priority = 5
+follow_mode = 2
+follow_target = NodePath("../Kairos")
+zoom = Vector2(0.8, 0.8)
+tween_resource = SubResource("Resource_h2eno")
+follow_offset = Vector2(0, -500)
+follow_damping = true
+follow_damping_value = Vector2(1, 0.25)
+dead_zone_width = 0.522
+dead_zone_height = 0.575
+show_viewfinder_in_play = true
+draw_limits = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -31412.0
@@ -139,14 +152,14 @@ libraries = {
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
-[node name="HealthGUI" parent="GUI" instance=ExtResource("9_4y2cg")]
-
-[node name="DummieEnemy" parent="." instance=ExtResource("10_xbgdx")]
-position = Vector2(1932, 1030)
+[node name="HealthGUI" parent="GUI" node_paths=PackedStringArray("player") instance=ExtResource("9_4y2cg")]
+player = NodePath("../../Player/Kairos")
 
 [node name="EnemyBase" parent="." instance=ExtResource("10_xbgdx")]
-position = Vector2(3099, 908)
+position = Vector2(3313, 1648)
+scale = Vector2(1.2, 1.2)
 
-[node name="Pathfinder" type="Node2D" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 visible = false
-script = ExtResource("11_5em41")
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]

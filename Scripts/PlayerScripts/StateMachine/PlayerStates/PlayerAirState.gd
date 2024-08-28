@@ -8,13 +8,14 @@ func enter():
 func process(delta):
 	player.animplayer.play("Jump")
 	
-	if raycast.is_colliding():
+	if raycast.is_colliding() and player.is_on_wall_only():
 		if raycast.get_collider().name == "TileMap":
 			state_machine.change_to("PlayerWallState")
 			
 	
 	move(player.input_axis)
 	if player.is_on_floor():
+		player.can_roll = true
 		state_machine.change_to("PlayerGroundState")
 		
 	#if  player.velocity.y > 0 and player.is_air_combo:
@@ -35,7 +36,7 @@ func move(direction):
 		player.velocity.x = move_toward(player.velocity.x, direction.x * player.speed, player.acceleration * player.tick)
 	elif direction.x == 0:
 		player.velocity.x = move_toward(player.velocity.x, 0.0 , player.friction * player.tick)
-func input(event : InputEvent):
+func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
 		if air_jump:
 			player.velocity.y = player.jump_force * 0.9

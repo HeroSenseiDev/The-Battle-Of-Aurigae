@@ -2,15 +2,17 @@ extends CharacterBody2D
 class_name Player
 
 
-var is_air_combo = false
-
 @export var normal_speed = 950
 @export var dash_speed = 3000
-@onready var hitbox_component = $HitboxComponent
+@export var roll_speed = 2000
+@onready var hitbox_component = $AttackDirector/HitboxComponent
 @export var speed = 950
 @export var tick = 70
 @export var acceleration = 5
 @export var friction = 7
+
+var can_roll
+@onready var roll_cooldown: Timer = $Timers/RollCooldown
 
 var collected_keys = ""
 
@@ -19,8 +21,8 @@ var savedJumpPosition : Vector2
 @onready var can_dash = $Timers/CanDash
 @onready var dashing = $Timers/Dashing
 
-@onready var color_rect = $"../ColorRect"
-@onready var fanimation_player = $"../ColorRect/AnimationPlayer"
+#@onready var color_rect = $"../ColorRect"
+#@onready var fanimation_player = $"../ColorRect/AnimationPlayer"
 
 
 var candash = true
@@ -32,9 +34,7 @@ var dash_counter_start
 @export var jump_particles : PackedScene
 @export var health_component : HealthComponent
 @export var attack_cooldown : Timer
-@export var dash_cooldown : Timer
 var can_attack : bool = true
-var conecteelcombo = false
 
 @export var wall_raycast : RayCast2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -43,7 +43,6 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @onready var animsprite : Sprite2D = $Sprite2D
 @export var animplayer  : AnimationPlayer
-@onready var combo_timer = $Timers/ComboTimer
 
 
 
@@ -53,6 +52,8 @@ var max_health = 2
 var health = 0
 
 func _ready():
+	can_roll = true
+	$AttackDirector/HitboxComponent/CollisionShape2D.disabled = true
 	can_attack = true
 	if can_attack == false:
 		can_attack = true
@@ -66,7 +67,7 @@ func _ready():
 
 func _process(_delta):
 	flip_sprite()
-	respawn_decitiom()
+	#respawn_decitiom()
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y = velocity.y / 10
 func _physics_process(delta):
@@ -122,14 +123,14 @@ func apply_gravity(delta):
 		velocity.y += gravity * delta
 		velocity.y = clampf(velocity.y, -25000, 15000)
 
-func respawn_decitiom():
-	if global_position.y > 2200:
-		health_component.take_damage(1, self)
-		print("Tengo que hacer respawn")
-		fanimation_player.play("fade")
-		get_tree().create_timer(0.2)
-		respawn()
-		
+#func respawn_decitiom():
+	#if global_position.y > 2200:
+		#health_component.take_damage(1, self)
+		#print("Tengo que hacer respawn")
+		#fanimation_player.play("fade")
+		#get_tree().create_timer(0.2)
+		#respawn()
+		#
 func respawn():
 	var reposition: Vector2 = savedJumpPosition
 	global_position = Vector2(reposition.x + -100, reposition.y + -200)
@@ -146,10 +147,13 @@ func _on_attack_cooldown_timeout():
 	
 
 
-
 func _on_dashing_timeout():
 	is_dashing = false
 
 
 func _on_can_dash_timeout():
 	candash = true
+
+
+func _on_roll_cooldown_timeout() -> void:
+	can_roll = true

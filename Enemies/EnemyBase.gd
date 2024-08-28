@@ -1,13 +1,12 @@
 extends CharacterBody2D
 class_name EnemyBase
-@onready var hurted_timer = $Timers/HurtedTimer
-@onready var knockback_duration = $"Timers/Knockback Duration"
+@onready var hurted_timer = $Timers/Timer
+@onready var knockback_duration = $Timers/Timer
 @export var knockback_jump : bool
 @export var knockback_jump_force : float
 @onready var ray_cast_left = $RayCasts/RayCastLEFT
 @onready var ray_cast_right = $RayCasts/RayCastRIGHT
 @onready var enemy_area = $Areas/EnemyArea
-
 
 var speed = 30000
 var normal_speed = 30000
@@ -23,17 +22,21 @@ var is_roaming : bool = true
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+var shock_gravity
+var normal_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var state_machine = $StateMachine
 
 @onready var animation_player = $AnimationPlayer
 
+var shock
 @onready var health_component :  HealthComponent = $Areas/HealthComponent
 @onready var direction_timer = $Timers/DirectionTimer
 @export var idle_in_edges : bool
 var player : Player
+@export var jump_force = -3500
 
 func _ready():
-
+	shock_gravity = gravity / 4
 	player = get_tree().get_first_node_in_group("Player")
 	health_component.onDead.connect(func(): dead())
 	health_component.onDamageTook.connect(func(): hurted())
@@ -55,26 +58,20 @@ func flip_sprite():
 
 
 func hurted():
+	print(health_component.current_health)
 	animation_player.play("Hurted")
 	state_machine.change_to("EnemyHurted")
 	
 func dead():
-	queue_free()
+	state_machine.change_to("EnemyDead")
 
-func _on_direction_timer_timeout():
-	direction_timer.wait_time = choose([3.0, 4.0])
-	if !is_chase:
-		direction = choose([Vector2.RIGHT, Vector2.LEFT])
-		velocity.x = 0
+
 func choose(array):
 	array.shuffle()
 	return array.front()
 
 
-func tween():
+func tweenHURTED():
 	var tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	tween.tween_property(self, "modulate", Color.RED, 0.4)
 	tween.tween_property(self, "modulate", Color.WHITE, 0.4)
-
-
-

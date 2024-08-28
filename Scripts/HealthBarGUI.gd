@@ -1,8 +1,8 @@
 extends TextureProgressBar
-
+class_name HealthBar
 @export var health_component : HealthComponent
 
-func _ready():
+func on_ready():
 	max_value = health_component.max_health
 	value = health_component.current_health
 	

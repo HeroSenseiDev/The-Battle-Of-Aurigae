@@ -214,19 +214,19 @@ radius = 85.3881
 [sub_resource type="CircleShape2D" id="CircleShape2D_2rs4c"]
 radius = 77.0192
 
-[sub_resource type="Gradient" id="Gradient_i0wt5"]
+[sub_resource type="Gradient" id="Gradient_yjm4f"]
 colors = PackedColorArray(0.243137, 0.243137, 0.243137, 1, 0.243137, 0.243137, 0.243137, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_lxk55"]
-gradient = SubResource("Gradient_i0wt5")
+gradient = SubResource("Gradient_yjm4f")
 width = 200
 height = 31
 
-[sub_resource type="Gradient" id="Gradient_d11no"]
+[sub_resource type="Gradient" id="Gradient_qo7jm"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4xmce"]
-gradient = SubResource("Gradient_d11no")
+gradient = SubResource("Gradient_qo7jm")
 width = 200
 height = 31
 

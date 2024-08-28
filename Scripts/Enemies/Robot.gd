@@ -91,4 +91,3 @@ func _on_timer_timeout():
 	else:
 		speed = abs(speed) * -1
 		$RayCast2D.position.x = -57
-

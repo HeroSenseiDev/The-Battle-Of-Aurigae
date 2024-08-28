@@ -1,6 +1,6 @@
 extends PlayerState
 @export var raycast : RayCast2D
-@export var wall_jump_pushback = 1900
+@export var wall_jump_pushback = 2500
 
 func enter():
 	player.animplayer.play("Slide")
@@ -37,12 +37,12 @@ func wall_climb():
 func wall_jump(_delta):
 	var wall_normal = player.get_wall_normal()
 	if Input.is_action_just_pressed("left_move") and wall_normal == Vector2.LEFT:
-		player.velocity.x = wall_normal.x * player.speed * 3
-		player.velocity.y = player.jump_force / 1.5
+		player.velocity.x = wall_normal.x * player.speed * 5
+		player.velocity.y = player.jump_force
 		state_machine.change_to("PlayerAirState")
 	if Input.is_action_just_pressed("right_move") and wall_normal == Vector2.RIGHT:
-		player.velocity.x = wall_normal.x * player.speed * 3
-		player.velocity.y = player.jump_force / 1.5
+		player.velocity.x = wall_normal.x * player.speed * 5
+		player.velocity.y = player.jump_force 
 		state_machine.change_to("PlayerAirState")
 	
 func wall_slide():

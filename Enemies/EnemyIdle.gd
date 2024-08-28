@@ -5,7 +5,8 @@ func enter():
 	idle_timer.start()
 	enemy.animation_player.play("Idle")
 	
-func process(delta):
+
+func process(_delta):
 	enemy.velocity.x = 0
 
 

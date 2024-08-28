@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=3 uid="uid://0v5cp8nvr4u4"]
+[gd_scene load_steps=91 format=3 uid="uid://0v5cp8nvr4u4"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/Player.gd" id="1_sk5bm"]
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/StateMachine.gd" id="2_6k4xk"]
@@ -9,10 +9,11 @@
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/StateMachine/PlayerStates/PlayerAttackState.gd" id="6_6uuui"]
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/StateMachine/PlayerStates/PlayerHurtedState.gd" id="7_rus0k"]
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/StateMachine/PlayerStates/PlayerWallSlideState.gd" id="8_luye3"]
-[ext_resource type="Script" path="res://Scenes/PlayerDashState.gd" id="9_5biha"]
+[ext_resource type="Script" path="res://Scripts/PlayerDashState.gd" id="9_5biha"]
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/WallRaycast.gd" id="9_204n7"]
 [ext_resource type="AudioStream" uid="uid://dqldjyf1bml6k" path="res://SFX/Player/Hurt_Punch.wav" id="11_5rh01"]
 [ext_resource type="Script" path="res://Scripts/PlayerScripts/StateMachine/PlayerStates/PlayerAirAttack.gd" id="11_mad3p"]
+[ext_resource type="Script" path="res://Scripts/PlayerScripts/StateMachine/PlayerStates/PlayerRollState.gd" id="11_w3pc7"]
 [ext_resource type="AudioStream" uid="uid://c42iqrvnuq4ob" path="res://SFX/Player/Swoosh.wav" id="12_ygvdn"]
 [ext_resource type="AudioStream" uid="uid://dla5m36w046u6" path="res://SFX/Player/Damage.wav" id="13_ualba"]
 [ext_resource type="Texture2D" uid="uid://hlr8cgkoas4q" path="res://Art/Sprites/Kairos/animation.10.png" id="15_6t8qv"]
@@ -33,7 +34,6 @@
 [ext_resource type="Texture2D" uid="uid://q3pc551jn835" path="res://Art/Sprites/Kairos/animation.14.png" id="19_4l4n7"]
 [ext_resource type="Texture2D" uid="uid://57sftqfilngr" path="res://Art/Sprites/Kairos/animation.28.png" id="19_n5vvi"]
 [ext_resource type="Texture2D" uid="uid://cffwg306gk1tw" path="res://Art/Sprites/Kairos/animation.52.png" id="20_b1dp5"]
-[ext_resource type="Texture2D" uid="uid://3t5dahk2dwdl" path="res://Art/Sprites/Kairos/animation.35.png" id="21_0v685"]
 [ext_resource type="Texture2D" uid="uid://7be4e0dg2kcm" path="res://Art/Sprites/Kairos/animation.02.png" id="21_a67jw"]
 [ext_resource type="Texture2D" uid="uid://bsfd2jv1qd7oo" path="res://Art/Sprites/Kairos/animation.01.png" id="21_rht0m"]
 [ext_resource type="Texture2D" uid="uid://bvhspy1m4nohm" path="res://Art/Sprites/Kairos/animation.16.png" id="21_v7csn"]
@@ -45,12 +45,11 @@
 [ext_resource type="Texture2D" uid="uid://fxgp5fc7bmbq" path="res://Art/Sprites/Kairos/animation.06.png" id="25_2nqmn"]
 [ext_resource type="Texture2D" uid="uid://c1eoq62jl0d05" path="res://Art/Sprites/Kairos/animation.07.png" id="26_admfa"]
 [ext_resource type="Texture2D" uid="uid://bfr87y2b6qws0" path="res://Art/Sprites/Kairos/animation.08.png" id="27_p1tl1"]
-[ext_resource type="Texture2D" uid="uid://f6etpnh77jcx" path="res://Art/Sprites/Kairos/animation.40.png" id="28_wyfl5"]
-[ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="31_jawr5"]
+[ext_resource type="Texture2D" uid="uid://d0ecpx4bte5t7" path="res://Art/Sprites/Kairos/animation.36.png" id="29_87kkb"]
+[ext_resource type="Texture2D" uid="uid://bhg8r1kjghjfg" path="res://Art/Sprites/Kairos/animation.38.png" id="30_e1odj"]
+[ext_resource type="Texture2D" uid="uid://42rvcvebmd1h" path="res://Art/Sprites/Kairos/hurt-animation.64.png" id="31_krlwh"]
 [ext_resource type="PackedScene" uid="uid://bw128ioahhcng" path="res://Scenes/cloves.tscn" id="31_m6a13"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="32_ssstt"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="33_4s31r"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="34_njq6n"]
+[ext_resource type="Texture2D" uid="uid://dtnjyib1pfkhr" path="res://Art/Sprites/Kairos/hurt-animation.65.png" id="32_b7dcx"]
 [ext_resource type="Texture2D" uid="uid://dq6legjiasko6" path="res://Art/Sprites/Kairos/animation.41.png" id="34_ulggq"]
 [ext_resource type="Texture2D" uid="uid://bxppkb74e3cjf" path="res://Art/Sprites/Kairos/animation.43.png" id="35_xfx84"]
 [ext_resource type="Texture2D" uid="uid://edww2t4pbfc8" path="res://Art/Sprites/Kairos/animation.45.png" id="36_uttx0"]
@@ -64,7 +63,15 @@
 [ext_resource type="Texture2D" uid="uid://c2tna6qbsykmv" path="res://Art/Sprites/Kairos/animation.46.png" id="55_sg453"]
 [ext_resource type="Texture2D" uid="uid://dd348jwee4a38" path="res://Art/Sprites/Kairos/fall_animation.24.png" id="57_aa2ii"]
 [ext_resource type="Texture2D" uid="uid://b52j7vnc4a2jc" path="res://Art/Sprites/Kairos/animation.48.png" id="57_h6fjo"]
+[ext_resource type="Texture2D" uid="uid://dmfjmrdv5aiol" path="res://Art/Sprites/Kairos/roll-animation.53.png" id="57_jk16x"]
+[ext_resource type="Texture2D" uid="uid://c2jfq2uw4ha16" path="res://Art/Sprites/Kairos/roll-animation.54.png" id="58_v5vld"]
+[ext_resource type="Texture2D" uid="uid://dsasmegnoyxi0" path="res://Art/Sprites/Kairos/roll-animation.55.png" id="59_koqmp"]
+[ext_resource type="Texture2D" uid="uid://bifdt2cg14adf" path="res://Art/Sprites/Kairos/roll-animation.56.png" id="60_gnfl4"]
+[ext_resource type="Texture2D" uid="uid://c6jermqrgwjy6" path="res://Art/Sprites/Kairos/roll-animation.57.png" id="61_a1br1"]
 [ext_resource type="Texture2D" uid="uid://d26171nlmiv7" path="res://Art/Sprites/Kairos/fall_animation.28.png" id="61_ymsve"]
+[ext_resource type="Texture2D" uid="uid://clrpr7jg75nlb" path="res://Art/Sprites/Kairos/roll-animation.58.png" id="62_rrbfa"]
+[ext_resource type="Texture2D" uid="uid://2eq2llew3ymg" path="res://Art/Sprites/Kairos/roll-animation.59.png" id="63_4ly21"]
+[ext_resource type="Texture2D" uid="uid://bmf1ege3b0q4k" path="res://Art/Sprites/Kairos/roll-animation.60.png" id="64_agtjl"]
 
 [sub_resource type="Animation" id="Animation_s3d27"]
 resource_name = "Attack"
@@ -164,10 +171,10 @@ tracks/0/path = NodePath("Sprite2D:texture")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("22_myppa"), ExtResource("21_0v685"), ExtResource("28_wyfl5")]
+"values": [ExtResource("22_myppa"), ExtResource("29_87kkb"), ExtResource("30_e1odj"), ExtResource("31_krlwh"), ExtResource("32_b7dcx")]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -180,6 +187,18 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.505, -10)]
 }
 
 [sub_resource type="Animation" id="Animation_6xsup"]
@@ -222,18 +241,6 @@ tracks/2/keys = {
 "update": 0,
 "values": [true]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Sprite2D:scale")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.048, 0.048)]
-}
 
 [sub_resource type="Animation" id="Animation_5cpw0"]
 resource_name = "Jump"
@@ -262,18 +269,6 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector2(0.505, -7)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.048, 0.048)]
-}
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p0sr7"]
 
@@ -294,38 +289,55 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/path = NodePath("Sprite2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.019, 0.018)]
+"values": [Vector2(0.505, -7.201)]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite2D:position")
+tracks/2/path = NodePath("AttackDirector/HitboxComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0.505, -7.201)]
+"values": [false]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("AttackDirector/HitboxComponent/CollisionShape2D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
+
+[sub_resource type="Animation" id="Animation_hqjoc"]
+resource_name = "Roll"
+length = 0.35
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.04, 0.09, 0.14, 0.19, 0.24, 0.29, 0.35),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("57_jk16x"), ExtResource("58_v5vld"), ExtResource("59_koqmp"), ExtResource("60_gnfl4"), ExtResource("61_a1br1"), ExtResource("62_rrbfa"), ExtResource("63_4ly21"), ExtResource("64_agtjl")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.01),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [false]
+"values": [Vector2(0.505, 20)]
 }
 
 [sub_resource type="Animation" id="Animation_n20r4"]
@@ -343,18 +355,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 0,
 "values": [ExtResource("15_6t8qv"), ExtResource("15_vtku2"), ExtResource("17_3x5ll"), ExtResource("16_lomdg"), ExtResource("19_4l4n7"), ExtResource("17_ho5yf"), ExtResource("21_v7csn"), ExtResource("18_gay82")]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite2D:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0.048, 0.048)]
 }
 
 [sub_resource type="Animation" id="Animation_dbxoh"]
@@ -384,19 +384,20 @@ _data = {
 "Idle": SubResource("Animation_6xsup"),
 "Jump": SubResource("Animation_5cpw0"),
 "RESET": SubResource("Animation_encbq"),
+"Roll": SubResource("Animation_hqjoc"),
 "Run": SubResource("Animation_n20r4"),
 "Slide": SubResource("Animation_dbxoh")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_46lp1"]
-radius = 5.68784
+radius = 25.8759
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h846b"]
-radius = 6.49707
+radius = 61.4973
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ro3xv"]
-radius = 3.34279
-height = 12.1097
+radius = 40.9369
+height = 174.11
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_25j3n"]
 bg_color = Color(1, 1, 1, 1)
@@ -405,15 +406,9 @@ bg_color = Color(1, 1, 1, 1)
 font_size = 76
 font_color = Color(0, 0, 0, 1)
 
-[sub_resource type="Resource" id="Resource_im5mc"]
-script = ExtResource("34_njq6n")
-duration = 1.75
-transition = 7
-ease = 1
-
 [node name="Kairos" type="CharacterBody2D" node_paths=PackedStringArray("health_component", "attack_cooldown", "wall_raycast", "stateMachine", "animplayer") groups=["Player"]]
-scale = Vector2(15.855, 15.855)
 collision_layer = 2
+collision_mask = 9
 script = ExtResource("1_sk5bm")
 speed = 1300
 jump_force = -4500
@@ -427,7 +422,6 @@ animplayer = NodePath("AnimationPlayer")
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("2_6k4xk")
 initial_state = NodePath("PlayerGroundState")
-DEBUG = false
 
 [node name="PlayerGroundState" type="Node" parent="StateMachine"]
 script = ExtResource("3_toox0")
@@ -456,6 +450,10 @@ raycast = NodePath("../../WallRaycast")
 script = ExtResource("9_5biha")
 raycast = NodePath("../../WallRaycast")
 
+[node name="PlayerRollState" type="Node" parent="StateMachine" node_paths=PackedStringArray("raycast")]
+script = ExtResource("11_w3pc7")
+raycast = NodePath("../../WallRaycast")
+
 [node name="PlayerAirAttack" type="Node" parent="StateMachine"]
 script = ExtResource("11_mad3p")
 
@@ -474,11 +472,14 @@ wait_time = 0.7
 [node name="RespawnWaitTime" type="Timer" parent="Timers"]
 wait_time = 0.5
 
-[node name="ComboTimer" type="Timer" parent="Timers"]
-wait_time = 0.3
-
 [node name="KnockbackDuration" type="Timer" parent="Timers"]
 wait_time = 0.2
+
+[node name="RollCoyote" type="Timer" parent="Timers"]
+wait_time = 0.5
+one_shot = true
+
+[node name="RollCooldown" type="Timer" parent="Timers"]
 
 [node name="SFX" type="Node" parent="."]
 
@@ -501,12 +502,13 @@ speed_scale = 1.2
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0.505, -7.201)
-scale = Vector2(0.019, 0.018)
+scale = Vector2(0.6, 0.6)
 texture = SubResource("CompressedTexture2D_p0sr7")
 
 [node name="WallRaycast" type="RayCast2D" parent="."]
-position = Vector2(0, -11.6682)
-target_position = Vector2(7, 0)
+position = Vector2(0, -1)
+scale = Vector2(8.815, 8.815)
+target_position = Vector2(9, 0)
 script = ExtResource("9_204n7")
 
 [node name="HealthComponent" type="Area2D" parent="."]
@@ -557,50 +559,14 @@ text = "STATE:"
 label_settings = SubResource("LabelSettings_emfnb")
 script = ExtResource("37_0in6o")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(0, -22.0751)
-zoom = Vector2(1.2, 1.2)
-position_smoothing_enabled = true
-position_smoothing_speed = 2.0
-script = ExtResource("31_jawr5")
-
-[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
-script = ExtResource("32_ssstt")
-
-[node name="AudioListener2D" type="AudioListener2D" parent="Camera2D"]
-current = true
-
-[node name="Cameras" type="Node2D" parent="."]
-
-[node name="PhantomCamera2D" type="Node2D" parent="Cameras"]
-unique_name_in_owner = true
-position = Vector2(0, -22.0751)
-script = ExtResource("33_4s31r")
-priority_override = false
-priority = 5
-zoom = Vector2(1.2, 1.2)
-follow_mode = 2
-follow_target = NodePath("../..")
-follow_parameters/target_offset = Vector2(0, -350)
-follow_parameters/damping = true
-follow_parameters/damping_value = 2.0
-frame_preview = true
-limit/draw_limits = false
-limit/left = -10000000
-limit/top = -10000000
-limit/right = 10000000
-limit/bottom = 10000000
-limit/smoothed = false
-limit/tile_map_limit_target = NodePath("")
-tween_parameters = SubResource("Resource_im5mc")
-tween_on_load = true
-inactive_update_mode = 0
-
 [connection signal="timeout" from="Timers/AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="Timers/Dashing" to="." method="_on_dashing_timeout"]
 [connection signal="timeout" from="Timers/CanDash" to="." method="_on_can_dash_timeout"]
 [connection signal="timeout" from="Timers/RespawnWaitTime" to="." method="_on_respawn_wait_time_timeout"]
 [connection signal="timeout" from="Timers/KnockbackDuration" to="StateMachine/PlayerHurtedState" method="_on_knockback_duration_timeout"]
+[connection signal="timeout" from="Timers/RollCoyote" to="StateMachine/PlayerRollState" method="_on_roll_coyote_timeout"]
+[connection signal="timeout" from="Timers/RollCooldown" to="." method="_on_roll_cooldown_timeout"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/PlayerAttackState" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/PlayerHurtedState" method="_on_animation_player_animation_finished"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/PlayerDashState" method="_on_animation_player_animation_finished"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine/PlayerRollState" method="_on_animation_player_animation_finished"]

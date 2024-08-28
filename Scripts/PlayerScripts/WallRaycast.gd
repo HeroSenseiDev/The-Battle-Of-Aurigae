@@ -1,5 +1,5 @@
 extends RayCast2D
-var raycast_dimension = 7
+var raycast_dimension = 9
 var ray_flip = false
 # Called when the node enters the scene tree for the first time.
 func _ready():

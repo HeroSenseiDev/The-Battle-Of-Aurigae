@@ -17,6 +17,12 @@ func move(direction):
 	elif direction.x == 0:
 		player.velocity.x = move_toward(player.velocity.x, 0.0 , player.friction * player.tick)
 		
+func state_exit():
+	print("saliendo de attack")
+	GameManager.desactivate_shake()
+	player.can_attack = false
+	player.attack_cooldown.start()
+	
 func _on_animation_player_animation_finished(anim_name):
 	if anim_name == "Attack":
 		player.can_attack = false
