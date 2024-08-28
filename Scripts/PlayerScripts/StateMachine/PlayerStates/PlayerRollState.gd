@@ -11,9 +11,9 @@ func process(delta) -> void:
 	if !player.is_on_floor():
 		roll_coyote.start()
 	#player.set_collision_mask_value(2, false)
-	if raycast.is_colliding():
-		if raycast.get_collider().name == "TileMap":
-			state_machine.change_to("PlayerWallState")
+	#if raycast.is_colliding():
+		#if raycast.get_collider().name == "TileMap":
+			#state_machine.change_to("PlayerWallState")
 			
 	player.velocity.y = 0
 	if player.is_dashing == true:

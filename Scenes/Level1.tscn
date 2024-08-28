@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=4 uid="uid://clc340xqlbn3a"]
 
-[ext_resource type="Texture2D" uid="uid://dpgxtl1ki5yk2" path="res://Art/Sprites/Prototype/TileSet Prototype.jpg" id="1_06oig"]
+[ext_resource type="Texture2D" uid="uid://bxqa1hu4sy86p" path="res://Art/Tiles/prototype tileset.jpg" id="1_y0r2l"]
 [ext_resource type="Texture2D" uid="uid://dlhy0plx8vg7o" path="res://Tiles/Tiles floor v1.png" id="5_yhucv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i3hu4"]
-texture = ExtResource("1_06oig")
+texture = ExtResource("1_y0r2l")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
