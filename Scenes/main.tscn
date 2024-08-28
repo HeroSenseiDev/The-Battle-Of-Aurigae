@@ -64,8 +64,8 @@ _data = {
 position = Vector2(1, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(5277, -284)
-scale = Vector2(7.78646, 5.45926)
+position = Vector2(4141, 2157)
+scale = Vector2(10.4177, 9.97963)
 texture = ExtResource("13_a3f12")
 
 [node name="Statue" parent="." instance=ExtResource("4_m5d8s")]
@@ -91,9 +91,11 @@ script = ExtResource("10_38hm2")
 gradient = ExtResource("11_8nxkj")
 
 [node name="DayNight2" type="CanvasModulate" parent="Settings"]
+visible = false
 color = Color(1, 0.462745, 0.517647, 1)
 
 [node name="DirectionalLight2D" type="DirectionalLight2D" parent="Settings"]
+visible = false
 color = Color(0.686275, 0.572549, 0.733333, 1)
 energy = 0.33
 

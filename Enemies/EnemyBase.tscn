@@ -76,8 +76,8 @@ size = Vector2(477.524, 254.762)
 radius = 138.095
 height = 528.571
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qxcul"]
-size = Vector2(2051, 881)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ugh2p"]
+size = Vector2(4716, 1756)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hy52v"]
 radius = 151.954
@@ -545,7 +545,7 @@ wait_time = 0.1
 [node name="RayCasts" type="Node2D" parent="."]
 
 [node name="RayCastLEFT" type="RayCast2D" parent="RayCasts"]
-position = Vector2(-63, 1)
+position = Vector2(-101, 1)
 scale = Vector2(5, 5)
 target_position = Vector2(0, 25)
 
@@ -560,7 +560,7 @@ scale = Vector2(5, 5)
 target_position = Vector2(0, 150)
 
 [node name="RayCastRIGHT" type="RayCast2D" parent="RayCasts"]
-position = Vector2(64, 0)
+position = Vector2(88, -1)
 scale = Vector2(5, 5)
 target_position = Vector2(0, 25)
 
@@ -605,8 +605,8 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Areas/EnemyArea"]
-position = Vector2(2, -122.5)
-shape = SubResource("RectangleShape2D_qxcul")
+position = Vector2(7, 5)
+shape = SubResource("RectangleShape2D_ugh2p")
 
 [node name="EnemyAttackArea" type="Area2D" parent="Areas"]
 collision_layer = 0
