@@ -20,6 +20,5 @@ layout_mode = 2
 modulate = Color(0.928952, 0.858642, 0.180943, 1)
 custom_minimum_size = Vector2(650, 25)
 layout_mode = 2
-value = 100.0
 show_percentage = false
 script = ExtResource("1_ftkrp")
