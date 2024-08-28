@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bpw2pqulyy8oy"]
+[gd_scene load_steps=21 format=3 uid="uid://bpw2pqulyy8oy"]
 
 [ext_resource type="PackedScene" uid="uid://clc340xqlbn3a" path="res://Scenes/Level1.tscn" id="1_pb2i6"]
 [ext_resource type="PackedScene" uid="uid://0v5cp8nvr4u4" path="res://Scenes/Kairos.tscn" id="2_4upec"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://1iw8lc5d06n0" path="res://Resources/daynightcycle-gradient-texture.tres" id="11_8nxkj"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="11_m1np8"]
 [ext_resource type="Texture2D" uid="uid://88blcpgu0ea3" path="res://Resources/fondo.jpg" id="13_a3f12"]
+[ext_resource type="PackedScene" uid="uid://cymc3mh2uev1y" path="res://Scenes/HUD/ActionsCooldown.tscn" id="14_cgqlw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2sucn"]
 size = Vector2(1612.34, 1896.67)
@@ -154,6 +155,8 @@ libraries = {
 
 [node name="HealthGUI" parent="GUI" node_paths=PackedStringArray("player") instance=ExtResource("9_4y2cg")]
 player = NodePath("../../Player/Kairos")
+
+[node name="ActionsCooldown" parent="GUI" instance=ExtResource("14_cgqlw")]
 
 [node name="EnemyBase" parent="." instance=ExtResource("10_xbgdx")]
 position = Vector2(3313, 1648)

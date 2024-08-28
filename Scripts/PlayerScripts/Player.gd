@@ -14,9 +14,10 @@ class_name Player
 var can_roll
 @onready var roll_cooldown: Timer = $Timers/RollCooldown
 
+
 var collected_keys = ""
 
-var savedJumpPosition : Vector2
+var savedJumpPosition: Vector2
 
 @onready var can_dash = $Timers/CanDash
 @onready var dashing = $Timers/Dashing
@@ -26,32 +27,32 @@ var savedJumpPosition : Vector2
 
 
 var candash = true
-var is_dashing : bool
+var is_dashing: bool
 @export var dash_counter = 1
 var dash_counter_start
 
 @export var jump_force = -3900
-@export var jump_particles : PackedScene
-@export var health_component : HealthComponent
-@export var attack_cooldown : Timer
-var can_attack : bool = true
+@export var jump_particles: PackedScene
+@export var health_component: HealthComponent
+@export var attack_cooldown: Timer
+var can_attack: bool = true
 
-@export var wall_raycast : RayCast2D
+@export var wall_raycast: RayCast2D
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@export var stateMachine : StateMachine
+@export var stateMachine: StateMachine
 
-@onready var animsprite : Sprite2D = $Sprite2D
-@export var animplayer  : AnimationPlayer
+@onready var animsprite: Sprite2D = $Sprite2D
+@export var animplayer: AnimationPlayer
 
 
-
-var input_axis : Vector2
+var input_axis: Vector2
 
 var max_health = 2
 var health = 0
 
 func _ready():
+	roll_cooldown.one_shot = true
 	can_roll = true
 	$AttackDirector/HitboxComponent/CollisionShape2D.disabled = true
 	can_attack = true
@@ -145,7 +146,6 @@ func _on_attack_cooldown_timeout():
 	can_attack = true
 	$Timers/AttackCooldown.start()
 	
-
 
 func _on_dashing_timeout():
 	is_dashing = false

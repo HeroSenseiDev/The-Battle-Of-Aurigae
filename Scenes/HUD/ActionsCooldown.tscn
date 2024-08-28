@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cymc3mh2uev1y"]
+
+[ext_resource type="Script" path="res://Scripts/HUD/RollCooldownBar.gd" id="1_ftkrp"]
+
+[node name="ActionsCooldown" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 225
+theme_override_constants/margin_top = 210
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RollCooldownBar" type="ProgressBar" parent="MarginContainer/VBoxContainer"]
+modulate = Color(0.928952, 0.858642, 0.180943, 1)
+custom_minimum_size = Vector2(650, 25)
+layout_mode = 2
+value = 100.0
+show_percentage = false
+script = ExtResource("1_ftkrp")
