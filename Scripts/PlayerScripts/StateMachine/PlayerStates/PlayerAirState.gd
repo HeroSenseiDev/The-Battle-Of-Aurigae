@@ -16,6 +16,7 @@ func process(delta):
 	move(player.input_axis)
 	if player.is_on_floor():
 		player.can_roll = true
+		player.land_tween()
 		state_machine.change_to("PlayerGroundState")
 		
 	#if  player.velocity.y > 0 and player.is_air_combo:
@@ -40,6 +41,7 @@ func unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump"):
 		if air_jump:
 			player.velocity.y = player.jump_force * 0.9
+			player.jump_tween()
 			player.jump_dust_instantiate()
 			air_jump = false
 	elif event.is_action_pressed("attack"):

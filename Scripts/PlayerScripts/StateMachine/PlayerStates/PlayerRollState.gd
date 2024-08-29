@@ -28,20 +28,20 @@ func _on_animation_player_animation_finished(anim_name):
 			player.can_roll = false
 			player.health_component.set_collision_layer_value(2, true)
 			player.set_collision_mask_value(4, true)
-			player.animsprite.position.y = -7
+			player.animsprite.position.y = 78
 			state_machine.change_to("PlayerGroundState")
 		else:
 			player.can_roll = false
 			player.health_component.set_collision_layer_value(2, true)
 			player.set_collision_mask_value(4, true)
-			player.animsprite.position.y = -7
+			player.animsprite.position.y = 78
 			state_machine.change_to("PlayerAirState")
 
 func state_exit():
 	player.roll_cooldown.start()
 	player.can_roll = false
 	roll_coyote.stop()
-	player.animsprite.position.y = -7
+	player.animsprite.position.y = 78
 	GameManager.desactivate_shake()
 	player.health_component.set_collision_layer_value(2, true)
 	player.set_collision_mask_value(4, true)

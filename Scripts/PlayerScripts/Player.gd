@@ -139,6 +139,17 @@ func respawn():
 	await get_tree().create_timer(0.3).timeout
 	speed = normal_speed
 	
+func jump_tween():
+	var jump_tween = create_tween()
+	var jump_tween_speed = 0.03
+	jump_tween.tween_property(animsprite, "scale", Vector2(0.3, 0.9), jump_tween_speed).set_ease(Tween.EASE_OUT)
+	jump_tween.tween_property(animsprite, "scale", Vector2(0.6, 0.6), jump_tween_speed * 5).set_ease(Tween.EASE_IN)
+	
+func land_tween():
+	var land_tween = create_tween()
+	var land_tween_speed = 0.03
+	land_tween.tween_property(animsprite, "scale", Vector2(0.8, 0.4), land_tween_speed).set_ease(Tween.EASE_OUT)
+	land_tween.tween_property(animsprite, "scale", Vector2(0.6, 0.6), land_tween_speed * 5).set_ease(Tween.EASE_IN)
 func save_last_jump_position():
 	savedJumpPosition = global_position
 
