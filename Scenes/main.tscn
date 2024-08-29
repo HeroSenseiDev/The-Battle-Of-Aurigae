@@ -167,7 +167,11 @@ libraries = {
 player = NodePath("../../Player/Kairos")
 
 [node name="EnemyBase" parent="." instance=ExtResource("10_xbgdx")]
-position = Vector2(3313, 1648)
+position = Vector2(2618, 1784)
+scale = Vector2(1.2, 1.2)
+
+[node name="EnemyBase2" parent="." instance=ExtResource("10_xbgdx")]
+position = Vector2(3841, 1652)
 scale = Vector2(1.2, 1.2)
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]

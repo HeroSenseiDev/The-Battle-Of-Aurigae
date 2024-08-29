@@ -15,6 +15,7 @@ func process(_delta):
 func knockback():
 	knockback_duration.start()
 	player.velocity = (player.health_component.knockback_vector * knockbackforce)
+	player.velocity.y = player.jump_force / 2
 	player.move_and_slide()
 	
 

@@ -1,7 +1,7 @@
 extends EnemyState
 @onready var ray_cast_right_void: RayCast2D = $"../../RayCasts/RayCastRightVoid"
 @onready var ray_cast_left_void: RayCast2D = $"../../RayCasts/RayCastLEFTVoid"
-
+@onready var ray_cast_forward: RayCast2D = $"../../RayCasts/RayCastForward"
 func enter():
 	enemy.animation_player.play("FastRun")
 	enemy.speed = enemy.normal_speed * 2
@@ -15,19 +15,21 @@ func state_exit():
 	enemy.set_collision_mask_value(4, false)
 	
 func physics_process(delta):
-	if enemy.is_on_wall() and enemy.is_on_floor():
-		enemy.velocity.y = enemy.jump_force
+	var dir_to_player = enemy.position.direction_to(enemy.player.global_position)
+	enemy.velocity.x = dir_to_player.x * enemy.speed * delta
+	enemy.animation_player.play("FastRun")
+	if ray_cast_forward.is_colliding() and enemy.is_on_floor():
+		if ray_cast_forward.get_collider().name == "TileMap":
+			enemy.velocity.y = enemy.jump_force
 	if !enemy.is_on_floor():
 		enemy.animation_player.play("Air")
-		var dir_to_player = enemy.position.direction_to(enemy.player.global_position)
+		dir_to_player = enemy.position.direction_to(enemy.player.global_position)
 		enemy.velocity.x = dir_to_player.x * enemy.speed * delta
 	if enemy.is_on_floor() and enemy.velocity.x > 0:
 		enemy.animation_player.play("FastRun")
-	if enemy.ray_cast_left.is_colliding() and enemy.ray_cast_right.is_colliding():
-		var dir_to_player = enemy.position.direction_to(enemy.player.global_position)
-		enemy.velocity.x = dir_to_player.x * enemy.speed * delta
-		enemy.animation_player.play("FastRun")
-	elif !ray_cast_left_void.is_colliding() or !ray_cast_right_void.is_colliding():
+	#if enemy.ray_cast_left.is_colliding() and enemy.ray_cast_right.is_colliding():
+
+	if !ray_cast_left_void.is_colliding() or !ray_cast_right_void.is_colliding():
 		enemy.animation_player.play("Idle")
 		enemy.velocity.x = 0
 		
@@ -37,8 +39,10 @@ func flip_sprite() -> void:
 	if enemy.velocity.x < 0:
 		enemy.sprite_2d.flip_h = false
 		$"../../Areas/AttackHitboxComponent/CollisionShape2D".position.x = -200
+		ray_cast_forward.target_position.x = -100
 	elif enemy.velocity.x > 0:
 		enemy.sprite_2d.flip_h = true
+		ray_cast_forward.target_position.x = 100
 		$"../../Areas/AttackHitboxComponent/CollisionShape2D".position.x = 200
 		
 	
