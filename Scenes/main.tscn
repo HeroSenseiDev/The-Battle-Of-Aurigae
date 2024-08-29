@@ -1,8 +1,9 @@
-[gd_scene load_steps=21 format=3 uid="uid://bpw2pqulyy8oy"]
+[gd_scene load_steps=22 format=3 uid="uid://bpw2pqulyy8oy"]
 
 [ext_resource type="PackedScene" uid="uid://clc340xqlbn3a" path="res://Scenes/Level1.tscn" id="1_pb2i6"]
 [ext_resource type="PackedScene" uid="uid://0v5cp8nvr4u4" path="res://Scenes/Kairos.tscn" id="2_4upec"]
 [ext_resource type="Script" path="res://Scripts/CameraEventArea2D.gd" id="3_2dyfo"]
+[ext_resource type="Texture2D" uid="uid://h7xylfo5fehq" path="res://Art/Assets/charge_robot.png" id="4_hmk6f"]
 [ext_resource type="PackedScene" uid="uid://fjnv0bkfqmq2" path="res://Scenes/statue.tscn" id="4_m5d8s"]
 [ext_resource type="Script" path="res://Scripts/Camera2D.gd" id="7_tu6og"]
 [ext_resource type="Texture2D" uid="uid://bnieqg4jbg8uq" path="res://TestsTrash/Proyecto nuevo (27) (1).png" id="8_3acdg"]
@@ -82,6 +83,11 @@ script = ExtResource("3_2dyfo")
 position = Vector2(-21.1643, -15.6667)
 shape = SubResource("RectangleShape2D_2sucn")
 
+[node name="ChargeRobot" type="Sprite2D" parent="."]
+position = Vector2(1621, 1621)
+scale = Vector2(3, 3)
+texture = ExtResource("4_hmk6f")
+
 [node name="TileMap" parent="." instance=ExtResource("1_pb2i6")]
 
 [node name="Settings" type="Node2D" parent="."]
@@ -141,10 +147,10 @@ show_viewfinder_in_play = true
 draw_limits = true
 
 [node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -31412.0
-offset_top = -21466.0
-offset_right = 48588.0
-offset_bottom = 28534.0
+offset_left = -31723.0
+offset_top = -21834.0
+offset_right = 48277.0
+offset_bottom = 28166.0
 color = Color(0, 0, 0, 0)
 metadata/_edit_use_anchors_ = true
 
@@ -155,10 +161,10 @@ libraries = {
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
+[node name="ActionsCooldown" parent="GUI" instance=ExtResource("14_cgqlw")]
+
 [node name="HealthGUI" parent="GUI" node_paths=PackedStringArray("player") instance=ExtResource("9_4y2cg")]
 player = NodePath("../../Player/Kairos")
-
-[node name="ActionsCooldown" parent="GUI" instance=ExtResource("14_cgqlw")]
 
 [node name="EnemyBase" parent="." instance=ExtResource("10_xbgdx")]
 position = Vector2(3313, 1648)
