@@ -2,8 +2,8 @@ extends CharacterBody2D
 class_name EnemyBase
 @onready var hurted_timer = $Timers/Timer
 @onready var knockback_duration = $Timers/Timer
-@export var knockback_jump : bool
-@export var knockback_jump_force : float
+@export var knockback_jump: bool
+@export var knockback_jump_force: float
 @onready var ray_cast_left = $RayCasts/RayCastLEFT
 @onready var ray_cast_right = $RayCasts/RayCastRIGHT
 @onready var enemy_area = $Areas/EnemyArea
@@ -12,13 +12,13 @@ var speed = 30000
 var normal_speed = 30000
 var knockback_force = 4
 
-var is_chase : bool = false
-var is_dead : bool = false
-var is_hurted : bool = false
-var direction : Vector2
-var is_roaming : bool = true
-@onready var sprite_2d : Sprite2D = $Sprite2D
-@export var hurted_SFX : AudioStreamPlayer
+var is_chase: bool = false
+var is_dead: bool = false
+var is_hurted: bool = false
+var direction: Vector2
+var is_roaming: bool = true
+@onready var sprite_2d: Sprite2D = $Sprite2D
+@export var hurted_SFX: AudioStreamPlayer
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -29,10 +29,10 @@ var normal_gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animation_player = $AnimationPlayer
 
 var shock
-@onready var health_component :  HealthComponent = $Areas/HealthComponent
+@onready var health_component: HealthComponent = $Areas/HealthComponent
 @onready var direction_timer = $Timers/DirectionTimer
-@export var idle_in_edges : bool
-var player : Player
+@export var idle_in_edges: bool
+var player: Player
 @export var jump_force = -3500
 
 func _ready():
@@ -58,6 +58,7 @@ func flip_sprite():
 
 
 func hurted():
+	HudSignals.emit_signal("update_combo_counter")
 	print(health_component.current_health)
 	animation_player.play("Hurted")
 	state_machine.change_to("EnemyHurted")
