@@ -20,4 +20,4 @@ func combo_update():
 	show()
 	combo_counter += 1
 	%Counter.text = str(combo_timeout)
-	timer.start(5)
+	timer.start(combo_timeout)
